@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Regisztráció</title>
+    <a href='#' class="stt" title="Lap tetejére"></a>
+</head>
+<body>
+
+    <div class="navbar">
+        <a class="navlinks" href="index.html">Kezdőlap</a>
+        <a class="navlinks" href="shop.html">Áruház</a>
+        <a class="navlinks" href="login.html">Bejelentkezés</a>
+        <a class="navlinks" id="active" href="register.html">Regisztráció</a>
+    </div>
+<div id="formbox"> 
+    <form> <!-- action="register"-->
+        <label class="formname"> Regisztráció</label>
+        <div class="forms">
+            <label for="fname">Vezetéknév</label><br>
+            <input type="text" id="lname" name="lname"  placeholder="Vezetéknév" required><br>
+            <label for="lname">Keresztnév:</label><br>
+            <input type="text" id="fname" name="fname"  placeholder="Keresztnév" required><br>
+            <label for="email">Email cím:</label><br>
+            <input type="text" id="email" name="email"  placeholder="Email cím" required><br>
+            <label for="pw">Jelszó:</label><br>
+            <input type="text" id="pw" name="pw"  placeholder="Jelszó" required><br>
+            <label for="pw2">Jelszó újra:</label><br>
+            <input type="text" id="pw2" name="pw2"  placeholder="Jelszó újra" required><br>
+            <input type="submit" value="Regisztáció">
+            <input type="reset" value="Törlés">
+            <a class="notyet" href="login.html"> Már regisztráltam.</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
