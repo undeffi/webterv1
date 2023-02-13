@@ -10,12 +10,20 @@ body{
 }
 
 .navbar{
+    display: flex;
+    flex-basis: auto;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0;
     animation: opacityincrease 0.3s;
-    text-shadow: 8px;
-    left: 23%;
+    /*text-shadow: 2px 2px gray;*/
+    margin: auto;
+    /*left: 23%;*/
+    width: 95vw;
 }
+
+
 
 .navlinks {
     background-color: white;
@@ -24,11 +32,19 @@ body{
     color: black;
     text-align: center;
     padding: 14px 16px;
-    width: 150px;
+    width: 7vw;
+    min-width: fit-content;
     text-decoration: none;
     border-radius: 20px;
-    margin-left: 15px;
+    margin: 1vw;
     border: 1px solid #d7d7d7; 
+    
+}
+
+@media screen and (max-width: 500px){
+    .navlinks{
+        font-size: 14px;
+    }
 }
 
 #active{
@@ -117,7 +133,7 @@ form{
     height: 45px;
     border-radius: 50%;
     background: rgb(60, 150, 240);
-    box-shadow: gray;
+    box-shadow: 5px 5px gray;
     opacity: 0.9;
 }
 
@@ -130,4 +146,35 @@ footer{
     padding: 3px;
     background-color: rgb(52, 52, 52);
     color: white;
+}
+
+.productContainer {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+    margin: auto;
+    width: 80vw;
+    min-height: 10vh;
+    min-width: 400px;
+    background-color: aqua;
+}
+
+.productBox{
+    width: 300px;
+    height: 300px;
+    background-color: blue;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+.productBox:hover{
+    width: 320px;
+    height: 320px;
+    background-color: cadetblue;
+    margin: 0px;
+    transition: 0.3s;
+}
+
+h1{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
