@@ -1,20 +1,182 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Áruház</title>
-    <a href='#' class="stt" title="Lap tetejére"></a>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Webshop - Áruház</title>
 </head>
+
 <body>
-    <div class="navbar">
+    <!-- header -->
+    <header id="header">
+        <h1> Ohmic Shop </h1>
+    </header>
+    <!-- navbar -->
+    <nav class="navbar">
         <a class="navlinks" href="index.html">Kezdőlap</a>
         <a class="navlinks" id="active" href="shop.html">Áruház</a>
         <a class="navlinks" href="login.html">Bejelentkezés</a>
         <a class="navlinks" href="register.html">Regisztráció</a>
+    </nav>
+    <!-- tartalom -->
+    <main>
+        <div id="scroll-to-top">
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
+        </div>
+    <div class="contentContainer">
+        <div class="productBox">
+
+            <div>
+                <a href="index.html">
+                    <img src="img/resistor.jpg" class="productBoxImage">
+                    <div class="productName">
+                        Szénfilm ellenállás 0.01Ω 100 db
+                    </div>
+                </a>
+
+            </div>
+            <div>
+                <div class="productCost">
+                    1 400Ft
+                </div>
+                <div class="productRating">
+                    &starf; &starf; &starf; &starf; &star;
+                </div>
+            </div>
+            <div>
+                <a class="kosarba" href="index.html">
+                    <div>
+                        Kosárba
+
+                    </div>
+                    <img src="img/shopping-cart-icon.png" alt="">
+                </a>
+            </div>
+
+        </div>
+        <div class="productBox">
+            <div>
+                <a href="index.html">
+                    <img src="nonexistent.jpg" class="productBoxImage">
+                    <div class="productName">
+                        Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév
+                    </div>
+                </a>
+                <div class="productCost">
+                    50000Ft
+                </div>
+                <div class="productRating">
+                    &starf; &starf; &starf; &starf; &star;
+                </div>
+            </div>
+
+            <a class="kosarba" href="index.html">
+                <div>
+                    Kosárba
+
+                </div>
+                <img src="nonexstent.png" alt="">
+            </a>
+
+
+        </div>
+        <div class="productBox">
+            <div>
+                <a href="index.html">
+                    <img src="nonexistent.jpg" class="productBoxImage">
+                    <div class="productName">
+                        Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév
+                    </div>
+                </a>
+                <div class="productCost">
+                    50000Ft
+                </div>
+                <div class="productRating">
+                    &starf; &starf; &starf; &starf; &star;
+                </div>
+            </div>
+
+            <a class="kosarba" href="index.html">
+                <div>
+                    Kosárba
+
+                </div>
+                <img src="nonexstent.png" alt="">
+            </a>
+
+
+        </div>
+        <div class="productBox">
+            <div>
+                <a href="index.html">
+                    <img src="nonexistent.jpg" class="productBoxImage">
+                    <div class="productName">
+                        Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév
+                    </div>
+                </a>
+                <div class="productCost">
+                    50000Ft
+                </div>
+                <div class="productRating">
+                    &starf; &starf; &starf; &starf; &star;
+                </div>
+            </div>
+
+            <a class="kosarba" href="index.html">
+                <div>
+                    Kosárba
+
+                </div>
+                <img src="nonexstent.png" alt="">
+            </a>
+
+
+        </div>
+        <div class="productBox">
+            <div>
+                <a href="index.html">
+                    <img src="nonexistent.jpg" class="productBoxImage">
+                    <div class="productName">
+                        Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév Terméknév
+                    </div>
+                </a>
+                <div class="productCost">
+                    50000Ft
+                </div>
+                <div class="productRating">
+                    &starf; &starf; &starf; &starf; &star;
+                </div>
+            </div>
+
+            <a class="kosarba" href="index.html">
+                <div>
+                    Kosárba
+
+                </div>
+                <img src="nonexstent.png" alt="">
+            </a>
+
+
+        </div>
     </div>
-    <p>Ez az áruház!</p>
+    </main>
+    <!-- footer -->
+    <!-- footer -->
+    <footer>
+        <div id="right">
+            <p>Email cím: ohmic@gmail.com</p>
+            <p>Telefonszám: +36301234567</p>
+            <p>Ohmic Shop &copy; </p>
+        </div>
+        <div id="left">
+            <p>Hétfő - Péntek: 8:00 - 16:00</p>
+            <p>Szombat: 10:00 - 14:00</p>
+            <p>Vasárnap: Zárva</p>
+        </div>
+    </footer>
 </body>
+
 </html>

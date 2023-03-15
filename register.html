@@ -4,37 +4,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Regisztráció</title>
-    <a href='#' class="stt" title="Lap tetejére"></a>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Webshop - Regisztráció</title>
 </head>
 <body>
-
-    <div class="navbar">
+    <!-- header -->
+    <header id="header">
+        <h1> Ohmic Shop </h1>
+    </header>
+    <!-- navbar -->
+    <nav class="navbar">
         <a class="navlinks" href="index.html">Kezdőlap</a>
         <a class="navlinks" href="shop.html">Áruház</a>
         <a class="navlinks" href="login.html">Bejelentkezés</a>
         <a class="navlinks" id="active" href="register.html">Regisztráció</a>
-    </div>
-<div id="formbox"> 
-    <form> <!-- action="register"-->
-        <label class="formname"> Regisztráció</label>
-        <div class="forms">
-            <label for="fname">Vezetéknév</label><br>
-            <input type="text" id="lname" name="lname"  placeholder="Vezetéknév" required><br>
-            <label for="lname">Keresztnév:</label><br>
-            <input type="text" id="fname" name="fname"  placeholder="Keresztnév" required><br>
-            <label for="email">Email cím:</label><br>
-            <input type="text" id="email" name="email"  placeholder="Email cím" required><br>
-            <label for="pw">Jelszó:</label><br>
-            <input type="text" id="pw" name="pw"  placeholder="Jelszó" required><br>
-            <label for="pw2">Jelszó újra:</label><br>
-            <input type="text" id="pw2" name="pw2"  placeholder="Jelszó újra" required><br>
-            <input type="submit" value="Regisztáció">
-            <input type="reset" value="Törlés">
-            <a class="notyet" href="login.html"> Már regisztráltam.</a>
+    </nav>
+    <!-- tartalom -->
+    <main>
+        <div id="scroll-to-top">
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
         </div>
-    </form>
-</div>
+        <div id="formbox">
+            <form> <!-- action="register"-->
+                <label class="formname"> Regisztráció</label>
+                <div class="forms">
+                    <label for="fname" class="required-label">Vezetéknév:</label><br>
+                    <input type="text" id="lname" name="lname"  placeholder="Vezetéknév" required><br>
+                    <label for="lname" class="required-label">Keresztnév:</label><br>
+                    <input type="text" id="fname" name="fname"  placeholder="Keresztnév" required><br>
+                    <label for="email" class="required-label">Email cím:</label><br>
+                    <input type="text" id="email" name="email"  placeholder="Email cím" required><br>
+                    <label for="pw" class="required-label">Jelszó:</label><br>
+                    <input type="password" id="pw" name="pw"  placeholder="Jelszó" required><br>
+                    <label for="pw2" class="required-label">Jelszó újra:</label><br>
+                    <input type="password" id="pw2" name="pw2"  placeholder="Jelszó újra" required><br>
+                    <input type="submit" value="Regisztáció">
+                    <input type="reset" value="Törlés">
+                    <a class="notyet" href="login.html"> Már regisztráltam.</a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+    <!-- footer -->
+    <footer>
+        <div id="right">
+            <p>Email cím: ohmic@gmail.com</p>
+            <p>Telefonszám: +36301234567</p>
+            <p>Ohmic Shop &copy; </p>
+        </div>
+        <div id="left">
+            <p>Hétfő - Péntek: 8:00 - 16:00</p>
+            <p>Szombat: 10:00 - 14:00</p>
+            <p>Vasárnap: Zárva</p>
+        </div>
+    </footer>
 </body>
 </html>

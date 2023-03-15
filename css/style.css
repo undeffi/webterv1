@@ -1,0 +1,357 @@
+@keyframes opacityincrease {
+    0% {
+        opacity: 0%;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(174, 174, 174);
+    box-sizing: border-box;
+}
+
+main {
+    position: relative;
+}
+
+/* === Fejléc === */
+header {
+    padding: 57px;
+    background-image: url('../img/headerbck.jpg'); /*=== Ezt le is cserelheted ha gondolod (en nem talaltam jobbat xd) ===*/
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+header h1 {
+    margin: 10px;
+    text-align: center;
+    font-size: 62px;
+    color: orange;
+    text-shadow: 3px 3px black;
+}
+
+/* === Navigáció === */
+.navbar {
+    display: flex;
+    flex-basis: auto;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    animation: opacityincrease 0.3s;
+    width: 95vw;
+    margin: auto;
+    z-index: 200;
+    left: 0;
+    right: 0;
+}
+.navlinks {
+    background-color: white;
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    width: 7vw;
+    min-width: fit-content;
+    text-decoration: none;
+    border-radius: 20px;
+    margin: 1vw;
+    border: 1px solid #d7d7d7;
+
+}
+@media screen and (max-width: 450px) {
+    .navlinks {
+        font-size: 12px;
+    }
+}
+#active {
+    background-color: rgb(60, 150, 240);
+}
+.navlinks:hover {
+    background-color: rgb(188, 188, 188);
+}
+#active:hover {
+    background-color: rgb(49, 134, 219);
+}
+
+/* === Forms === */
+.forms {
+    padding: 25px 25px 10px 25px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+form label {
+    font-size: small;
+    color: black;
+}
+input[type="text"],
+input[type="password"]{
+    width: 100%;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 35px;
+    border: 1px solid #d7d7d7;
+    box-sizing: border-box;
+    font-size: 15px;
+    background-color: white;
+    color: #717171;
+}
+input[type="submit"],
+input[type="reset"] {
+    border-radius: 20px;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 14px 16px;
+    border: 1px solid #d7d7d7;
+    font-size: 15px;
+    background-color: orange;
+    color: black;
+    cursor: pointer;
+}
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: rgb(49, 134, 219);
+}
+form {
+    display: block;
+    width: 300px;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+#formbox {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.formname {
+    margin-left: 33%;
+    font-size: large;
+    color: black;
+}
+.notyet {
+    font-size: small;
+    background-color: white;
+    color: rgb(49, 134, 219);
+}
+::placeholder {
+    font-size: small;
+}
+.required-label::after {
+    content: "*";
+    color: rgba(255, 0, 0);
+}
+
+/* === lap tetejere === */
+#scroll-to-top {
+    position: absolute;
+    top: 50vh;
+    bottom: 40px;
+    right: 40px;
+}
+#scroll-to-top button {
+    position: sticky;
+    top: 90vh;
+    padding: 15px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 2px 3px 6px black;
+    color: orange;
+    font-size: 110%;
+    cursor: pointer;
+}
+
+
+.contentContainer {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+    margin: auto;
+    width: 80vw;
+    min-height: 100vh;
+    min-width: 300px;
+    background-color: white;
+    padding-bottom: 9rem;
+}
+
+.contentContainer>div {
+    margin: 10px;
+}
+
+.productBox {
+    padding: 0px;
+    clear: both;
+    width: 260px;
+    height: 400px;
+    background-color: #00c3ff;
+    transition: 0.3s;
+    position: relative;
+}
+
+.productBox div {}
+
+.productBox:hover {
+    width: 280px;
+    height: 420px;
+    background-color: rgb(49, 134, 219);
+    margin: 0px;
+    transition: 0.3s;
+}
+
+.productBoxImage {
+    width: 100%;
+    background-color: rgb(217, 255, 0);
+}
+
+h1 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.videoFrame {
+    width: 50%;
+    min-width: 400px;
+    height: fit-content;
+
+}
+
+.videoFrame iframe {
+    max-width: 100%;
+    min-width: 600px;
+    aspect-ratio: 1.7;
+    max-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+@media screen and (max-width: 800px) {
+
+    .videoFrame {
+        min-width: fit-content;
+    }
+
+    .videoFrame iframe {
+        min-width: 50vw;
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+
+    .contentContainer {
+        width: 100%;
+    }
+
+}
+
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+.productName {
+    text-align: center;
+    height: 70px;
+
+}
+
+
+.productCost {
+    float: left;
+    width: 40%;
+    height: 20px;
+    padding: 5px 10px;
+    text-align: left;
+}
+
+.productRating {
+    float: right;
+    width: 40%;
+    height: 20px;
+    padding: 5px 10px;
+    text-align: right;
+}
+
+.kosarba {
+    width: 100%;
+    background-color: orange;
+    clear: both;
+    position: absolute;
+    bottom: 0;
+    height: 40px;
+    display: block;
+}
+
+div > .kosarba{
+    margin-top: auto;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.kosarba div {
+    padding: 10px;
+    float: left;
+}
+
+.kosarba img {
+    height: 30px;
+    width: 30px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+.attributeTable td,
+th {
+
+    width: fit-content;
+    text-align: center;
+}
+
+.resistanceBandTable {
+    background-color: #ffd88f;
+    width: max-content;
+    max-width: 30vw;
+    min-width: 300px;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: fixed;
+}
+
+
+
+.resistanceBandTable thead {
+    text-align: center;
+}
+
+.resistanceBandTable tbody tr:nth-child(odd) {
+    background-color: #ffca67;
+
+}
+
+.resistanceAttributeTable td {
+    padding: 2px;
+}
+/*=== Footer ===*/
+footer {
+    background-color: orange;
+    padding: 5px;
+    color: white;
+}
+#left{
+
+    text-align: left;
+}
+#right{
+    float: right;
+}
