@@ -1,15 +1,20 @@
 @keyframes opacityincrease {
-    0% { opacity: 0%; }
-    100% { opacity: 100%; }
+    0% {
+        opacity: 0%;
+    }
+
+    100% {
+        opacity: 100%;
+    }
 }
 
-body{
+body {
     background-color: rgb(174, 174, 174);
     margin-top: 80px;
 
 }
 
-.navbar{
+.navbar {
     display: flex;
     flex-basis: auto;
     justify-content: center;
@@ -38,45 +43,47 @@ body{
     text-decoration: none;
     border-radius: 20px;
     margin: 1vw;
-    border: 1px solid #d7d7d7; 
-    
+    border: 1px solid #d7d7d7;
+
 }
 
-@media screen and (max-width: 450px){
-    .navlinks{
+@media screen and (max-width: 450px) {
+    .navlinks {
         font-size: 12px;
     }
 
 }
 
-#active{
+#active {
     background-color: rgb(60, 150, 240);
 }
-.navlinks:hover{
+
+.navlinks:hover {
     background-color: rgb(188, 188, 188);
 }
-#active:hover{
+
+#active:hover {
     background-color: rgb(49, 134, 219);
 }
 
-.notyet{
+.notyet {
     font-size: small;
     background-color: white;
     color: rgb(49, 134, 219);
 }
 
-.forms{
+.forms {
     padding: 25px 25px 10px 25px;
     box-sizing: border-box;
     overflow: hidden;
 }
 
-form label{
+form label {
     font-size: small;
     color: black;
 }
 
-input[type="text"]{
+input[type="text"] {
     width: 100%;
     margin-bottom: 10px;
     padding-left: 5px;
@@ -89,7 +96,8 @@ input[type="text"]{
     color: #717171;
 }
 
-input[type="submit"], input[type="reset"]{
+input[type="submit"],
+input[type="reset"] {
     border-radius: 20px;
     width: 100%;
     margin-bottom: 10px;
@@ -100,11 +108,12 @@ input[type="submit"], input[type="reset"]{
     color: black;
 }
 
-input[type="submit"]:hover, input[type="reset"]:hover{
+input[type="submit"]:hover,
+input[type="reset"]:hover {
     background-color: rgb(49, 134, 219);
 }
 
-form{
+form {
     display: block;
     width: 300px;
     background-color: white;
@@ -112,18 +121,18 @@ form{
     margin-right: auto;
 }
 
-#formbox{
+#formbox {
     padding-top: 50px;
     padding-bottom: 50px;
 }
 
-.formname{
+.formname {
     margin-left: 33%;
     font-size: large;
     color: black;
 }
 
-::placeholder{
+::placeholder {
     font-size: small;
 }
 
@@ -139,11 +148,11 @@ form{
     opacity: 0.9;
 }
 
-:root { 
+:root {
     scroll-behavior: smooth;
 }
 
-footer{
+footer {
     text-align: center;
     padding: 3px;
     background-color: rgb(52, 52, 52);
@@ -161,16 +170,23 @@ footer{
     background-color: #00ff26b9;
 }
 
-.productBox{
+.contentContainer>div {
+    margin: 10px;
+}
+
+.productBox {
+    padding: 0px;
+    clear: both;
     width: 260px;
     height: 400px;
     background-color: #00c3ff;
-    margin: 10px;
     transition: 0.3s;
     position: relative;
 }
 
-.productBox:hover{
+.productBox div {}
+
+.productBox:hover {
     width: 280px;
     height: 420px;
     background-color: rgb(0, 247, 255);
@@ -178,69 +194,85 @@ footer{
     transition: 0.3s;
 }
 
-.productBoxImage{
+.productBoxImage {
     width: 100%;
     background-color: rgb(217, 255, 0);
 }
 
-h1{
+h1 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.videoFrame{
+.videoFrame {
     width: 50%;
     min-width: 400px;
-    height: 30vw;
-    min-height: 250px;
-    margin-left: auto;
-    
+    height: fit-content;
+
 }
 
-.videoFrame iframe{
-    width: 100%;
-    min-width: 300px;
+.videoFrame iframe {
+    max-width: 100%;
+    min-width: 600px;
     aspect-ratio: 1.7;
-    
+    max-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 800px) {
 
-    .videoFrame{
-        min-width: 300px;
+    .videoFrame {
+        min-width: fit-content;
     }
+
+    .videoFrame iframe {
+        min-width: 50vw;
+    }
+
 }
 
-a{
+@media screen and (max-width: 400px) {
+
+    .contentContainer {
+        width: 100%;
+    }
+
+}
+
+
+a {
     text-decoration: none;
     font-weight: bold;
     color: black;
 }
 
-.productName{
+.productName {
     text-align: center;
+    height: 70px;
+
 }
 
-.productCost{
+
+.productCost {
     float: left;
-    width: 45%;
+    width: 40%;
     height: 20px;
-    padding-left: 10px;
-    padding-top: 10px;
+    padding: 5px 10px;
     text-align: left;
-    
+
 }
 
-.productRating{
+.productRating {
     float: right;
-    width: 45%;
+    width: 40%;
     height: 20px;
-    padding-right: 10px;
-    padding-top: 6px;
+    padding: 5px 10px;
     text-align: right;
-    
+
 }
 
-.kosarba{
+.kosarba {
     width: 100%;
     background-color: orange;
     clear: both;
@@ -250,28 +282,69 @@ a{
     display: block;
 }
 
-.kosarba div{
+div > .kosarba{
+    margin-top: auto;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.kosarba div {
     padding: 10px;
     float: left;
 }
 
-.kosarba img{
-    height: 40px;
-    width: 40px;
+.kosarba img {
+    height: 30px;
+    width: 30px;
     float: right;
     margin-right: 20px;
+    margin-top: 5px;
 }
 
-.attributeTable{
+
+
+.attributeTable td,
+th {
+
+    width: fit-content;
+    text-align: center;
+}
+
+.resistanceBandTable {
+    background-color: #ffd88f;
+    width: max-content;
+    max-width: 30vw;
+    min-width: 300px;
+    padding: 5px;
     margin-left: auto;
     margin-right: auto;
     table-layout: fixed;
-    border: 2px solid #717171 ;
-    border-collapse: collapse;
 }
 
-.attributeTable td, th{
-    width: 100px;
+
+
+.resistanceBandTable thead {
     text-align: center;
-    border: 2px solid #717171 ;
 }
+
+.resistanceBandTable tbody tr:nth-child(odd) {
+    background-color: #ffca67;
+
+}
+
+.resistanceAttributeTable td {
+    padding: 2px;
+}
+
+footer {
+    background-color: orange;
+    display: flex;
+    flex-basis: auto;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    z-index: 200;
+}
+
+footer div {}
