@@ -65,6 +65,7 @@ header h1 {
     border: 1px solid #d7d7d7;
 
 }
+
 @media screen and (max-width: 450px) {
     .navlinks {
         font-size: 12px;
@@ -81,6 +82,11 @@ header h1 {
 }
 
 /* === Forms === */
+.notyet {
+    font-size: small;
+    background-color: white;
+    color: rgb(49, 134, 219);
+}
 .forms {
     padding: 25px 25px 10px 25px;
     box-sizing: border-box;
@@ -111,6 +117,7 @@ input[type="reset"] {
     padding: 14px 16px;
     border: 1px solid #d7d7d7;
     font-size: 15px;
+
     background-color: orange;
     color: black;
     cursor: pointer;
@@ -134,11 +141,6 @@ form {
     margin-left: 33%;
     font-size: large;
     color: black;
-}
-.notyet {
-    font-size: small;
-    background-color: white;
-    color: rgb(49, 134, 219);
 }
 ::placeholder {
     font-size: small;
@@ -166,7 +168,6 @@ form {
     font-size: 110%;
     cursor: pointer;
 }
-
 
 .contentContainer {
     display: flex;
@@ -260,9 +261,7 @@ a {
 .productName {
     text-align: center;
     height: 70px;
-
 }
-
 
 .productCost {
     float: left;
@@ -342,6 +341,7 @@ th {
 .resistanceAttributeTable td {
     padding: 2px;
 }
+
 /*=== Footer ===*/
 footer {
     background-color: orange;
