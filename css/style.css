@@ -23,7 +23,7 @@ main {
 /* === Fejléc === */
 header {
     padding: 57px;
-    background-image: url('../img/headerbck.jpg'); /*=== Ezt le is cserelheted ha gondolod (en nem talaltam jobbat xd) ===*/
+    background-image: url('../img/headerbck.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -66,9 +66,16 @@ header h1 {
 
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 850px) {
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .navlinks {
-        font-size: 12px;
+        padding: 7px 8px;
+        width: 20%;
+        margin: 0;
     }
 }
 #active {
@@ -82,9 +89,7 @@ header h1 {
 }
 
 /* === Forms === */
-.notyet {
-    font-size: small;
-    background-color: white;
+.notyet, #email {
     color: rgb(49, 134, 219);
 }
 .forms {
@@ -224,7 +229,7 @@ h1 {
 .videoFrame iframe {
     max-width: 100%;
     min-width: 600px;
-    aspect-ratio: 1.7;
+    aspect-ratio: 16/9;
     max-height: 100%;
     margin-left: auto;
     margin-right: auto;
