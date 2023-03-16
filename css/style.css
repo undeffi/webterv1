@@ -161,6 +161,7 @@ form {
     top: 50vh;
     bottom: 40px;
     right: 40px;
+    z-index: 200;
 }
 #scroll-to-top button {
     position: sticky;
@@ -199,8 +200,6 @@ form {
     transition: 0.3s;
     position: relative;
 }
-
-.productBox div {}
 
 .productBox:hover {
     width: 280px;
