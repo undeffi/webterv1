@@ -337,6 +337,8 @@ th {
     text-align: center;
 }
 
+
+
 .resistanceBandTable tbody tr:nth-child(odd) {
     background-color: #ffca67;
 
@@ -344,6 +346,11 @@ th {
 
 .resistanceAttributeTable td {
     padding: 2px;
+}
+
+.resistanceAttributeTable thead{
+    font-weight: lighter;
+    color: #ae3900;
 }
 
 /*=== Footer ===*/
