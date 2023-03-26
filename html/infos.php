@@ -15,13 +15,13 @@
 </header>
 <!-- navbar -->
 <nav class="navbar">
-  <a class="navlinks" href="index.html">Kezdőlap</a>
-  <a class="navlinks" href="shop.html">Áruház</a>
-  <a class="navlinks" href="login.html">Bejelentkezés</a>
-  <a class="navlinks" href="register.html">Regisztráció</a>
-  <a class="navlinks" href="cart.html">Kosár</a>
-  <a class="navlinks" href="profile.html">Profil</a>
-  <a class="navlinks" id="active" href="infos.html">Kapcsolat</a>
+  <a class="navlinks" href="index.php">Kezdőlap</a>
+  <a class="navlinks" href="shop.php">Áruház</a>
+  <a class="navlinks" href="login.php">Bejelentkezés</a>
+  <a class="navlinks" href="register.php">Regisztráció</a>
+  <a class="navlinks" href="cart.php">Kosár</a>
+  <a class="navlinks" href="profile.php">Profil</a>
+  <a class="navlinks" id="active" href="infos.php">Kapcsolat</a>
 </nav>
 <!-- tartalom -->
 <main>

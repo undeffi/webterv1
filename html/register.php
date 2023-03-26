@@ -1,14 +1,17 @@
 <?php
-//VeryHardPassword
+    include('utility/DBConnection.php');
 
-    include('utility/dbConnection.php');
+    session_start();
+    
+
+    
     $fNameErr = $lNameErr = $emailErr = $pwErr = $pw2Err = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cleanfname = $cleanlname = $cleanemail = $pass = "";
 
         $err = false;
 
-        $conn = new dbConnection();
+        $conn = new DBConnection();
 
         if (isset($_POST["fname"]) && trim($_POST["fname"]) != "") {
             $_POST["fname"] = trim($_POST["fname"]);
@@ -115,7 +118,7 @@
         }
 
         if (!$err) {
-
+            
             $conn->addUser($cleanfname, $cleanlname, $cleanemail, $pass, 0);
 
         }
@@ -141,13 +144,13 @@
     </header>
     <!-- navbar -->
     <nav class="navbar">
-        <a class="navlinks" href="index.html">Kezdőlap</a>
-        <a class="navlinks" href="shop.html">Áruház</a>
-        <a class="navlinks" href="login.html">Bejelentkezés</a>
-        <a class="navlinks" id="active" href="register.html">Regisztráció</a>
-        <a class="navlinks" href="cart.html">Kosár</a>
-        <a class="navlinks" href="profile.html">Profil</a>
-        <a class="navlinks" href="infos.html">Kapcsolat</a>
+        <a class="navlinks" href="index.php">Kezdőlap</a>
+        <a class="navlinks" href="shop.php">Áruház</a>
+        <a class="navlinks" href="login.php">Bejelentkezés</a>
+        <a class="navlinks" id="active" href="register.php">Regisztráció</a>
+        <a class="navlinks" href="cart.php">Kosár</a>
+        <a class="navlinks" href="profile.php">Profil</a>
+        <a class="navlinks" href="infos.php">Kapcsolat</a>
     </nav>
     <!-- tartalom -->
     <main>
@@ -175,7 +178,7 @@
                     <span class="error"><?php echo $pw2Err; ?></span>
                     <input type="submit" value="Regisztáció">
                     <input type="reset" value="Törlés">
-                    <a class="notyet" href="login.html"> Már regisztráltam.</a>
+                    <a class="notyet" href="login.php"> Már regisztráltam.</a>
                 </div>
             </form>
         </div>

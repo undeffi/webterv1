@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
-  <title>Webshop - Kosár</title>
+  <title>Webshop - Profilom</title>
   <link rel="icon" type="image/x-icon" href="../img/32px-Electronic_circuit.png">
 </head>
 <body>
@@ -15,13 +15,13 @@
 </header>
 <!-- navbar -->
 <nav class="navbar">
-  <a class="navlinks" href="index.html">Kezdőlap</a>
-  <a class="navlinks" href="shop.html">Áruház</a>
-  <a class="navlinks" href="login.html">Bejelentkezés</a>
-  <a class="navlinks" href="register.html">Regisztráció</a>
-  <a class="navlinks" id="active" href="cart.html">Kosár</a>
-  <a class="navlinks" href="profile.html">Profil</a>
-  <a class="navlinks" href="infos.html">Kapcsolat</a>
+  <a class="navlinks" href="index.php">Kezdőlap</a>
+  <a class="navlinks" href="shop.php">Áruház</a>
+  <a class="navlinks" href="login.php">Bejelentkezés</a>
+  <a class="navlinks" href="register.php">Regisztráció</a>
+  <a class="navlinks" href="cart.php">Kosár</a>
+  <a class="navlinks" id="active" href="profile.php">Profil</a>
+  <a class="navlinks" href="infos.php">Kapcsolat</a>
 </nav>
 <!-- tartalom -->
 <main>
