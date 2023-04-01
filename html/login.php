@@ -4,9 +4,9 @@
     session_start();
     $conn = new DBConnection();
     $message = "";
-
+    $emailErr = $pwErr = $email = $pw = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $emailErr = $pwerr = $email = $pw = "";
+        
         $err = false;
 
         if (isset($_POST["email"]) && trim($_POST["email"]) != "") {
@@ -58,6 +58,7 @@
                 }
                 $message = "Sikeres bejelentkezés. Üdv " . $user->getLname();
                 $_SESSION["userData"] = $user;
+                header("Location: profile.php");
             } else {
                 $message = "Hibás felhasználónév vagy jelszó";
             }
@@ -93,6 +94,9 @@
         <a class="navlinks" href="cart.php">Kosár</a>
         <a class="navlinks" href="profile.php">Profil</a>
         <a class="navlinks" href="infos.php">Kapcsolat</a>
+        <?php if (isset($_SESSION["userData"]) && $_SESSION["userData"]->getPrivLevel() > 1) {
+        echo "<a class='navlinks' href='adminDashboard.php'>Dashboard</a>";
+  }  ?>
     </nav>
     <!-- tartalom -->
     <main>
@@ -102,8 +106,10 @@
                 <div class="forms">
                     <label for="email" class="required-label">Email cím:</label><br>
                     <input type="text" id="email" name="email"  placeholder="Email cím"><br>
+                    <span class="error"><?php echo $emailErr ?></span>
                     <label for="pw" class="required-label">Jelszó:</label><br>
                     <input type="password" id="pw" name="pw"  placeholder="Jelszó"><br>
+                    <span class="error"><?php echo $pwErr ?></span>
                     <span><?php echo $message ?></span>
                     <input type="submit" value="Bejelentkezés">
                     <a class="notyet" href="register.php"> Még nem regisztráltam.</a>

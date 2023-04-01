@@ -1,3 +1,13 @@
+<?php
+  include('utility/UserData.php');
+
+  session_start();
+
+  if (!isset($_SESSION["userData"])) {
+    header("Location: login.php");
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,13 +32,35 @@
   <a class="navlinks" href="cart.php">Kosár</a>
   <a class="navlinks" id="active" href="profile.php">Profil</a>
   <a class="navlinks" href="infos.php">Kapcsolat</a>
+  <?php if (isset($_SESSION["userData"]) && $_SESSION["userData"]->getPrivLevel() > 1) {
+        echo "<a class='navlinks' href='adminDashboard.php'>Dashboard</a>";
+  }  ?>
 </nav>
 <!-- tartalom -->
 <main>
   <div id="scroll-to-top">
     <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
   </div>
-  <div style="text-align: center;"><h1> Majd PHP után :/ </h1></div>
+  <div style="text-align: center;">
+    <?php
+      echo "<table>
+      <tr>
+        <td>Név:</td>
+        <td>" . $_SESSION["userData"]->getFname() . " " . $_SESSION["userData"]->getLname() . "</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      
+      </table>"
+    ?>
+    <a href="logout.php">Kijelentkezés</a>
+  </div>
 </main>
 <!-- footer -->
 <footer>

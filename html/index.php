@@ -1,3 +1,9 @@
+<?php
+
+  include('utility/UserData.php');
+  
+ session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="hu">
 
@@ -24,6 +30,9 @@
   <a class="navlinks" href="cart.php">Kosár</a>
   <a class="navlinks" href="profile.php">Profil</a>
   <a class="navlinks" href="infos.php">Kapcsolat</a>
+  <?php if (isset($_SESSION["userData"]) && $_SESSION["userData"]->getPrivLevel() > 1) {
+        echo "<a class='navlinks' href='adminDashboard.php'>Dashboard</a>";
+  }  ?>
 </nav>
 <!-- tartalom -->
 <main>

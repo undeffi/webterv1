@@ -1,3 +1,14 @@
+<?php
+
+  include('utility/UserData.php');
+  
+ session_start();
+
+ if (!isset($_SESSION["userData"])) {
+   header("Location: login.php");
+ }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +33,9 @@
   <a class="navlinks" id="active" href="cart.php">Kosár</a>
   <a class="navlinks" href="profile.php">Profil</a>
   <a class="navlinks" href="infos.php">Kapcsolat</a>
+  <?php if (isset($_SESSION["userData"]) && $_SESSION["userData"]->getPrivLevel() > 1) {
+        echo "<a class='navlinks' href='adminDashboard.php'>Dashboard</a>";
+  }  ?>
 </nav>
 <!-- tartalom -->
 <main>

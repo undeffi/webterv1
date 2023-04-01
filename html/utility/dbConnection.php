@@ -42,27 +42,41 @@
             $email = filter_var($email, FILTER_SANITIZE_EMAIL);
             $passwd = password_hash($passwd . $email, PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO `users` (`fname`, `lname`, `email`, `passwd`, `priviligeLevel`) VALUES ('$fname', '$lname', '$email', '$passwd', '$plevel');";
-            $this->connection->query($sql);
+
+            $stmt = $this->connection->prepare("INSERT INTO `users` (`fname`, `lname`, `email`, `passwd`, `priviligeLevel`) VALUES (?, ?, ?, ?, ?);");
+            $stmt->bind_param("ssssi", $fname, $lname, $email, $passwd, $plevel);
+            $stmt->execute();
+
+            return $stmt->errno == 0;
         }
 
         public function login($email, $passwd)
         {
             $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
-            $sql = "SELECT `users`.`id`, `users`.`fname`, `users`.`lname`, `users`.`email`, `users`.`passwd`, `users`.`priviligeLevel`
-            FROM `users`
-            WHERE `users`.`email` LIKE '$email'";
+            $stmt = $this->connection->prepare("SELECT `users`.`id`, `users`.`fname`, `users`.`lname`, `users`.`email`, `users`.`passwd`, `users`.`priviligeLevel` FROM `users` WHERE `users`.`email` LIKE ?");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
 
-            $result = $this->connection->query($sql);
+            $result = $stmt->get_result();
             $data = $result->fetch_assoc();
 
-            if (mysqli_num_rows($result) > 0 && password_verify($passwd . $email, $data["passwd"])) {
+            if (mysqli_num_rows($result) == 1 && password_verify($passwd . $email, $data["passwd"])) {
 
                 return new UserData($data["id"], $data["fname"], $data["lname"], $data["email"], $data["priviligeLevel"]);
             }
          
             return false;
+        }
+
+        public function getProductTypes()
+        {
+            $sql = "SELECT `producttypes`.*, `producttypes`.`name`
+            FROM `producttypes`;";
+            
+            $result = $this->connection->query($sql);
+
+            return $result;
         }
     }
 
