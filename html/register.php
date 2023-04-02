@@ -117,7 +117,7 @@
         }
 
         if (!$err) {
-            if ($conn->addUser($cleanfname, $cleanlname, $cleanemail, $pass, 0);) {
+            if ($conn->addUser($cleanfname, $cleanlname, $cleanemail, $pass, 0)) {
                 header("Location: login.php");
             } 
             

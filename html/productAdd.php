@@ -51,16 +51,6 @@
             $err = $err . "Ár kitöltetlen\n";
         }
 
-        if (isset($_POST["rating"]) && trim($_POST["rating"]) != "") {
-            $rating = trim($_POST["rating"]);
-            if (is_numeric($rating)) {
-                # code...
-            } else {
-                $err = $err . "Értékelés illegális karaktereket tartalmaz\n";
-            }
-        } else {
-            $err = $err . "Értékelés kitöltetlen\n";
-        }
 
         if (isset($_POST["supply"]) && trim($_POST["supply"]) != "") {
             $supply = trim($_POST["supply"]);
@@ -80,8 +70,13 @@
         }
 
         if (empty($err)) {
-            $fileManager->uploadImage("image");
-            //$filePath = $fileManager->
+            $imagePath = $fileManager->uploadImage("image");
+            
+            if ($fileManager->err) {
+                $err . $fileManager->err;
+            } else {
+                $conn->addProduct($pTitle, $price, $type, $imagePath, $supply);
+            }
         }
     
     }
@@ -136,15 +131,6 @@
                     </select>
                     <label for="price">Ár</label>
                     <input type="text" name="price" id="price">
-                    <label for="rating">Értékelés</label>
-                    <select name="rating" id="rating">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                    </select>
                     <label for="supply">Készleten</label>
                     <input type="number" name="supply" id="supply">
                     <label for="image">Kép</label>

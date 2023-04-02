@@ -1,3 +1,16 @@
+<?php
+
+    include('utility/UserData.php');
+
+    session_start();
+
+    if (!isset($_SESSION["userData"])) {
+    header("Location: login.php");
+  } elseif ($_SESSION["userData"]->getPrivLevel() < 2) {
+      header("Location: profile.php");
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="hu">
 

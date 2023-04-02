@@ -71,12 +71,53 @@
 
         public function getProductTypes()
         {
-            $sql = "SELECT `producttypes`.*, `producttypes`.`name`
-            FROM `producttypes`;";
-            
-            $result = $this->connection->query($sql);
+            $stmt = $this->connection->prepare("SELECT `producttypes`.*, `producttypes`.`name` FROM `producttypes`;");
+            $stmt->execute();
+            $result = $stmt->get_result();
 
             return $result;
+        }
+
+        public function addProduct($title, $price, $type, $imagePath, $supply)
+        {
+
+            $title = filter_var($title, FILTER_SANITIZE_STRING);
+            $price = filter_var($price, FILTER_SANITIZE_NUMBER_INT);
+            $type = filter_var($type, FILTER_SANITIZE_NUMBER_INT);
+            $imagePath = filter_var($imagePath, FILTER_SANITIZE_STRING);
+            $supply = filter_var($supply, FILTER_SANITIZE_NUMBER_INT);
+
+            
+            
+            $stmt = $this->connection->prepare("INSERT INTO `products` (`title`, `price`, `type`, `imagePath`, `supply`) VALUES (?, ?, ?, ?, ?);");
+            $stmt->bind_param("siisi", $title, $price, $type, $imagePath, $supply);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            return $stmt->errno == 0;
+        }
+
+        public function getProducts($typeFilter)
+        {
+            if ($typeFilter !== false) {
+                $stmt = $this->connection->prepare("SELECT `products`.`title`, `products`.`price`, `products`.`imagePath`, `products`.`supply`, `producttypes`.`name` AS `type`
+                FROM `products` 
+                    LEFT JOIN `producttypes` ON `products`.`type` = `producttypes`.`id`
+                    WHERE `producttypes`.`id` = ?
+                    ORDER BY `products`.`type`;");
+                $stmt->bind_param("i", $typeFilter);
+            } else {
+                $stmt = $this->connection->prepare("SELECT `products`.`title`, `products`.`price`, `products`.`imagePath`, `products`.`supply`, `producttypes`.`name` AS `type`
+                FROM `products` 
+                    LEFT JOIN `producttypes` ON `products`.`type` = `producttypes`.`id`
+                    ORDER BY `products`.`type`;");
+            }
+
+            $stmt->execute();
+
+            return $stmt->get_result();
+            
         }
     }
 
