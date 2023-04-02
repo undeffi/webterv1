@@ -11,7 +11,7 @@
     $productTypes = $conn->getProductTypes();
 
     if (!isset($_SESSION["userData"])) {
-      header("Location: login.php");
+        header("Location: login.php");
     } elseif ($_SESSION["userData"]->getPrivLevel() < 2) {
         header("Location: shop.php");
     }
@@ -96,25 +96,11 @@
 
 <body>
     <!-- header -->
-    <header id="header">
-        <h1> Ohmic Shop </h1>
-    </header>
+    <?php include_once "includes/header.html"; ?>
     <!-- navbar -->
-    <nav class="navbar">
-        <a class="navlinks" href="index.php">Kezdőlap</a>
-        <a class="navlinks" href="shop.php">Áruház</a>
-        <a class="navlinks" href="login.php">Bejelentkezés</a>
-        <a class="navlinks" href="register.php">Regisztráció</a>
-        <a class="navlinks" href="cart.php">Kosár</a>
-        <a class="navlinks" href="profile.php">Profil</a>
-        <a class="navlinks" href="infos.php">Kapcsolat</a>
-        <a id="active" class="navlinks" href="adminDashboard.php">Dashboard</a>
-    </nav>
+    <?php include_once "includes/navbar.php"; ?>
     <!-- tartalom -->
     <main>
-        <div id="scroll-to-top">
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
-        </div>
         <div id="formbox">
             <form method="post" action="productAdd.php" enctype="multipart/form-data"> <!-- action="login"-->
                 <label class="formname">Új termék</label>

@@ -20,22 +20,9 @@
 </head>
 <body>
 <!-- header -->
-<header id="header">
-  <h1> Ohmic Shop </h1>
-</header>
+<?php include_once "includes/header.html"; ?>
 <!-- navbar -->
-<nav class="navbar">
-  <a class="navlinks" href="index.php">Kezdőlap</a>
-  <a class="navlinks" href="shop.php">Áruház</a>
-  <a class="navlinks" href="login.php">Bejelentkezés</a>
-  <a class="navlinks" href="register.php">Regisztráció</a>
-  <a class="navlinks" href="cart.php">Kosár</a>
-  <a class="navlinks" id="active" href="profile.php">Profil</a>
-  <a class="navlinks" href="infos.php">Kapcsolat</a>
-  <?php if (isset($_SESSION["userData"]) && $_SESSION["userData"]->getPrivLevel() > 1) {
-        echo "<a class='navlinks' href='adminDashboard.php'>Dashboard</a>";
-  }  ?>
-</nav>
+<?php include_once "includes/navbar.php"; ?>
 <!-- tartalom -->
 <main>
   <div id="scroll-to-top">
@@ -63,17 +50,6 @@
   </div>
 </main>
 <!-- footer -->
-<footer>
-  <div id="right">
-    <p>Email cím: ohmic@gmail.com</p>
-    <p>Telefonszám: +36301234567</p>
-    <p>Ohmic Shop &copy; </p>
-  </div>
-  <div id="left">
-    <p>Hétfő - Péntek: 8:00 - 16:00</p>
-    <p>Szombat: 10:00 - 14:00</p>
-    <p>Vasárnap: Zárva</p>
-  </div>
-</footer>
+<?php include_once "includes/footer.html"; ?>
 </body>
 </html>
