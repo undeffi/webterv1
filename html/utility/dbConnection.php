@@ -40,7 +40,7 @@
             $fname = filter_var($fname, FILTER_SANITIZE_STRING);
             $lname = filter_var($lname, FILTER_SANITIZE_STRING);
             $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-            $passwd = password_hash($passwd . $email, PASSWORD_DEFAULT);
+            $passwd = password_hash(trim($passwd), PASSWORD_DEFAULT);
 
 
             $stmt = $this->connection->prepare("INSERT INTO `users` (`fname`, `lname`, `email`, `passwd`, `priviligeLevel`) VALUES (?, ?, ?, ?, ?);");
@@ -61,9 +61,9 @@
             $result = $stmt->get_result();
             $data = $result->fetch_assoc();
 
-            if (mysqli_num_rows($result) == 1 && password_verify($passwd . $email, $data["passwd"])) {
+            if (mysqli_num_rows($result) == 1 && password_verify($passwd, $data["passwd"])) {
 
-                return new UserData($data["id"], $data["fname"], $data["lname"], $data["email"], $data["priviligeLevel"]);
+                return new UserData($data["id"], $data["fname"], $data["lname"], $data["email"], $data["passwd"], $data["priviligeLevel"]);
             }
          
             return false;
@@ -118,6 +118,61 @@
 
             return $stmt->get_result();
             
+        }
+
+        public function updateUserInfo($fname, $lname, $email)
+        {
+            $fname = filter_var($fname, FILTER_SANITIZE_STRING);
+            $lname = filter_var($lname, FILTER_SANITIZE_STRING);
+            $email = filter_var($email, FILTER_SANITIZE_STRING);
+
+            $stmt = $this->connection->prepare("UPDATE `users` SET `fname` = ?, `lname` = ?, `email` = ? WHERE `id` = ? ;");
+            $stmt->bind_param("sssi", $fname, $lname, $email, $_SESSION["userData"]->getId());
+            $stmt->execute();
+
+            if ($stmt->errno == 0) {
+                $_SESSION["userData"] = new UserData($_SESSION["userData"]->getId(), $fname, $lname, $email, $_SESSION["userData"]->getPasswordHash(), $_SESSION["userData"]->getPrivLevel());
+            }
+
+            return $stmt->errno == 0;
+        }
+
+        public function updatePassword($passwd)
+        {
+            //echo $passwd . "<br>";
+            $passwd = password_hash(trim($passwd), PASSWORD_DEFAULT);
+            $id = $_SESSION["userData"]->getId();
+            
+
+            $stmt = $this->connection->prepare("UPDATE `users` SET passwd = ? WHERE `id` = ? ;");
+            $stmt->bind_param("si", $passwd, $id);
+            $stmt->execute();
+
+            $_SESSION["userData"]->setPasswordHash($passwd);
+
+            return $stmt->errno == 0;
+        }
+
+        public function getUsers()
+        {
+            $id = $_SESSION["userData"]->getId();
+            $stmt = $this->connection->prepare("SELECT * FROM `users` WHERE `id` != ? ;");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            //echo $stmt->fullQuery . "<br>";
+
+            if ($stmt->errno == 0) {
+                return $stmt->get_result();
+            }
+
+            return false;
+        }
+
+        public function deleteUser($id)
+        {
+            $stmt = $this->connection->prepare("DELETE FROM `users` WHERE `id` = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
         }
     }
 

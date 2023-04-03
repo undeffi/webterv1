@@ -46,7 +46,10 @@
       
       </table>"
     ?>
-    <a href="logout.php">Kijelentkezés</a>
+    <a href="userInfoUpdate.php">Adatfrissítés</a><br>
+    <a href="changePassword.php">Jelszó megváltoztatása</a><br>
+    <a href="logout.php">Kijelentkezés</a><br>
+    <a href="userDelete.php">Fiók deaktiválása</a>
   </div>
 </main>
 <!-- footer -->

@@ -105,23 +105,23 @@
             <form method="post" action="productAdd.php" enctype="multipart/form-data"> <!-- action="login"-->
                 <label class="formname">Új termék</label>
                 <div class="forms">
-                    <label for="pTitle">Leírás</title>
-                    <textarea id="pTitle" name="pTitle" cols="30" rows="10" maxlength="90" style="resize:none"></textarea>
-                    <label for="type">Típus</label>
+                    <label for="pTitle">Leírás</title><br>
+                    <textarea id="pTitle" name="pTitle" cols="30" rows="10" maxlength="90" style="resize:none"></textarea><br>
+                    <label for="type">Típus</label><br>
                     <select id="type" name="type">
                         <?php
                             while($row = $productTypes->fetch_assoc()) {
                                 echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
                             }
                         ?>
-                    </select>
-                    <label for="price">Ár</label>
-                    <input type="text" name="price" id="price">
-                    <label for="supply">Készleten</label>
-                    <input type="number" name="supply" id="supply">
-                    <label for="image">Kép</label>
-                    <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-                    <input type="file" name="image" id="image">
+                    </select><br>
+                    <label for="price">Ár</label><br>
+                    <input type="text" name="price" id="price"><br>
+                    <label for="supply">Készleten</label><br>
+                    <input type="number" name="supply" id="supply"><br>
+                    <label for="image">Kép</label><br>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="10485760" /><br>
+                    <input type="file" name="image" id="image"><br>
                     <input type="submit" value="Termék hozzáadása">
                     <span class="error"><?php echo $err ?></span>
 

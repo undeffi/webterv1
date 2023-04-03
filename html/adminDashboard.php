@@ -1,6 +1,6 @@
 <?php
 
-    include('utility/UserData.php');
+    include('utility/DBConnection.php');
 
     session_start();
 
@@ -9,6 +9,8 @@
   } elseif ($_SESSION["userData"]->getPrivLevel() < 2) {
       header("Location: profile.php");
   }
+
+  $conn = new DBConnection();
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +33,23 @@
     <!-- tartalom -->
     <main>
     <div class="adminPage"> <a class="navlinks" href="productAdd.php">Termékek kezelése</a> </div>
+    <div class="contentContainer">
+    <?php
+        $users = $conn->getUsers();
+
+
+        while ($row = $users->fetch_assoc()) {
+            $content = '<div style="width: 100%">';
+
+            $content .= '<p>id: ' . $row["id"] . ' fname: ' . $row["fname"] . ' lname: ' . $row["lname"] . ' email: ' . $row["email"] . '</p>';
+
+
+            $content .= '<a href="userDelete.php?id=' . $row["id"] . '">Törlés</a></div>';
+            echo $content;
+        }
+
+    ?>
+    </div>
     </main>
 </body>
 </html>

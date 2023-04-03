@@ -5,14 +5,16 @@
         private $fname;
         private $lname;
         private $email;
+        private $passhash;
         private $privLevel;
 
-        public function __construct($id, $fname, $lname, $email, $privLevel)
+        public function __construct($id, $fname, $lname, $email, $passhash, $privLevel)
         {
             $this->id = $id;
             $this->fname = $fname;
             $this->lname = $lname;
             $this->email = $email;
+            $this->passhash = $passhash;
             $this->privLevel = $privLevel;
         }
 
@@ -36,10 +38,22 @@
             return $this->email;
         }
 
+        public function getPasswordHash()
+        {
+            return $this->passhash;
+        }
+
+        public function setPasswordHash($hash)
+        {
+            $this->passhash = $hash;
+        }
+
         public function getPrivLevel()
         {
             return $this->privLevel;
         }
+
+        
 
     }
 
