@@ -32,7 +32,10 @@
     <?php include_once "includes/navbar.php"; ?>
     <!-- tartalom -->
     <main>
-    <div class="adminPage"> <a class="navlinks" href="productAdd.php">Termékek kezelése</a> </div>
+    <div class="adminPage">
+         <a class="navlinks" href="productAdd.php">Termékek hozzáadása</a> 
+         <a class="navlinks" href="productBrowse.php">Termékek módosítása</a>
+    </div>
     <div class="contentContainer">
     <?php
         $users = $conn->getUsers();

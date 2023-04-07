@@ -376,3 +376,16 @@ footer {
 #right{
     float: right;
 }
+
+.productBrowseRow {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.productBrowseImage{
+    width: 200px;
+    height: 200px;
+}
