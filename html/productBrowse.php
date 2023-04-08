@@ -12,6 +12,8 @@ include('utility/DBConnection.php');
 
  $conn = new DBConnection();
 
+
+
  ?>
 <!DOCTYPE html>
 <html lang="hu">
@@ -39,6 +41,7 @@ include('utility/DBConnection.php');
         <div>
             <?php
                 $productTypes = $conn->getProductTypes();
+                
 
                 echo '<form style="width = 100%" action="productBrowse.php" method="get">
                 <label for="type">Típus</label>
@@ -55,23 +58,38 @@ include('utility/DBConnection.php');
                 }
                 
                 echo '</select>
-                <input type="submit" value="Keresés">
-                </form>';
+                <input type="text" ';
+                
+                if (isset($_GET["textFilter"])) {
+                    echo 'value="' . $_GET["textFilter"] . '"';
+                }
+
+                echo 'name="textFilter" id="textFilter">';
+                
 
             ?>
+                <input type="submit" value="Keresés">
+                </form>
         </div>
 
     <div class="contentContainer">
 
     <?php
 
-    $type = false;
+        $type = false;
 
-    if (isset($_GET["type"]) && is_numeric($_GET["type"]) && $_GET["type"] >= 0) {
-        $type = $_GET["type"];
-    }
+        if (isset($_GET["type"]) && is_numeric($_GET["type"]) && $_GET["type"] >= 0) {
+            $type = $_GET["type"];
+        }
 
-        $products = $conn->getProducts($type);
+        $textFilter = "";
+
+        if (isset($_GET["textFilter"])) {
+            $textFilter = $_GET["textFilter"];
+        }
+
+        $products = $conn->getProducts($type, $textFilter);
+
 
         while ($row = $products->fetch_assoc()) {
 
@@ -92,7 +110,11 @@ include('utility/DBConnection.php');
                 <div style="height: 33%; width: 100px;">
                 ' . $row["supply"] . '
                 </div>
+            </div>
+            <div style="height: 100%; width: 15%;">
+            <a href="productModify.php?productID=' . $row["id"] . '">Módosítás</a>
             </div>';
+
 
         }
 

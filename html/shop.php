@@ -49,10 +49,18 @@ include('utility/DBConnection.php');
                 }
                 
                 echo '</select>
-                <input type="submit" value="Keresés">
-                </form>';
+                <input type="text" ';
+                
+                if (isset($_GET["textFilter"])) {
+                    echo 'value="' . $_GET["textFilter"] . '"';
+                }
+
+                echo 'name="textFilter" id="textFilter">';
+                
 
             ?>
+                <input type="submit" value="Keresés">
+                </form>
         </div>
 
     <div class="contentContainer">
@@ -64,8 +72,13 @@ include('utility/DBConnection.php');
                 if (isset($_GET["type"]) && is_numeric($_GET["type"]) && $_GET["type"] >= 0) {
                     $type = $_GET["type"];
                 }
+                $textFilter = "";
 
-                $products = $conn->getProducts($type);
+                if (isset($_GET["textFilter"])) {
+                    $textFilter = $_GET["textFilter"];
+                }
+
+                $products = $conn->getProducts($type, $textFilter);
 
                 while ($row = $products->fetch_assoc()) {
                 echo '<div class="productBox">

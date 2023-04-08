@@ -15,8 +15,10 @@
     } elseif ($_SESSION["userData"]->getPrivLevel() < 2) {
         header("Location: shop.php");
     }
+    
 
     $err = "";
+    $productInfo = false;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pTitle = $type = $price = $rating = $supply = "";
@@ -63,23 +65,38 @@
             $err = $err . "Készlet kitöltetlen\n";
         }
 
-        if (is_uploaded_file($_FILES ['image'] ['tmp_name'])) {
-            //echo $_FILES["image"]["tmp_name"];
-        } else {
-            $err = $err . "Nincs kép\n";
-        }
 
         if (empty($err)) {
-            $imagePath = $fileManager->uploadImage("image");
+
+            $imagePath = false;
+            if (is_uploaded_file($_FILES ['image'] ['tmp_name'])){
+                $imagePath = $fileManager->uploadImage("image");
+            }
+
+            
             
             if ($fileManager->err) {
                 $err . $fileManager->err;
             } else {
-                $conn->addProduct($pTitle, $price, $type, $imagePath, $supply);
+                $conn->updateProduct($pTitle, $price, $type, $imagePath, $supply);
             }
+            
+            header('Location: productBrowse.php');
         }
     
+    } else{ 
+        if(!isset($_GET["productID"])) {
+            header("Location: productBrowse.php");
+        } else {
+            $productInfo = $conn->getProductByID($_GET["productID"])->fetch_assoc();
+            if ($productInfo === false) {
+                header("Location: productBrowse.php");
+            } else {
+                $_SESSION["productInfo"] = $productInfo;
+            }
+        }
     }
+    
 ?>
 
 <!DOCTYPE html>
@@ -102,27 +119,33 @@
     <!-- tartalom -->
     <main>
         <div id="formbox">
-            <form method="post" action="productAdd.php" enctype="multipart/form-data"> <!-- action="login"-->
-                <label class="formname">Új termék</label>
+            <form method="post" action="productModify.php" enctype="multipart/form-data"> <!-- action="login"-->
+                <label class="formname">Termék módosítása</label>
                 <div class="forms">
                     <label for="pTitle">Leírás</title><br>
-                    <textarea id="pTitle" name="pTitle" cols="30" rows="10" maxlength="90" style="resize:none"></textarea><br>
+                    <?php
+                    echo '<textarea id="pTitle" name="pTitle" cols="30" rows="10" maxlength="90" style="resize:none">' . $productInfo["title"] . '</textarea><br>
                     <label for="type">Típus</label><br>
-                    <select id="type" name="type">
-                        <?php
+                    <select id="type" name="type">';
+                        
                             while($row = $productTypes->fetch_assoc()) {
-                                echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
+                                $option = '<option value="' . $row["id"] . '" ';
+                                if ($row["name"] === $productInfo["type"]) {
+                                    $option .= 'selected="selected"';
+                                }
+                                echo $option . "'>" . $row["name"] . "</option>";
                             }
-                        ?>
-                    </select><br>
+                    
+                    echo '</select><br>
                     <label for="price">Ár</label><br>
-                    <input type="text" name="price" id="price"><br>
+                    <input type="text" name="price" id="price" value="' . $productInfo["price"] . '"><br>
                     <label for="supply">Készleten</label><br>
-                    <input type="number" name="supply" id="supply"><br>
+                    <input type="number" name="supply" id="supply" value="' . $productInfo["supply"] . '"><br>
                     <label for="image">Kép</label><br>
                     <input type="hidden" name="MAX_FILE_SIZE" value="10485760" /><br>
-                    <input type="file" name="image" id="image"><br>
-                    <input type="submit" value="Termék hozzáadása">
+                    <input type="file" name="image" id="image"><br>';
+                    ?>
+                    <input type="submit" value="Termék módosítása">
                     <span class="error"><?php echo $err ?></span>
 
                 </div>

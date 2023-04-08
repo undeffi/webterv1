@@ -98,26 +98,73 @@
             return $stmt->errno == 0;
         }
 
-        public function getProducts($typeFilter)
+        public function getProducts($typeFilter, $textFilter)
         {
+            $textFilter = filter_var($textFilter, FILTER_SANITIZE_STRING);
+
             if ($typeFilter !== false) {
-                $stmt = $this->connection->prepare("SELECT `products`.`title`, `products`.`price`, `products`.`imagePath`, `products`.`supply`, `producttypes`.`name` AS `type`
+                $stmt = $this->connection->prepare("SELECT `products`.`id`, `products`.`title`, `products`.`price`, `products`.`imagePath`, `products`.`supply`, `producttypes`.`name` AS `type`
                 FROM `products` 
                     LEFT JOIN `producttypes` ON `products`.`type` = `producttypes`.`id`
-                    WHERE `producttypes`.`id` = ?
+                    WHERE `producttypes`.`id` = ? AND `products`.`title` LIKE Concat('%', ?, '%') 
                     ORDER BY `products`.`type`;");
-                $stmt->bind_param("i", $typeFilter);
+                $stmt->bind_param("is", $typeFilter, $textFilter);
             } else {
-                $stmt = $this->connection->prepare("SELECT `products`.`title`, `products`.`price`, `products`.`imagePath`, `products`.`supply`, `producttypes`.`name` AS `type`
+                $stmt = $this->connection->prepare("SELECT `products`.`id`, `products`.`title`, `products`.`price`, `products`.`imagePath`, `products`.`supply`, `producttypes`.`name` AS `type`
                 FROM `products` 
                     LEFT JOIN `producttypes` ON `products`.`type` = `producttypes`.`id`
+                    WHERE `products`.`title` LIKE Concat('%', ?, '%') 
                     ORDER BY `products`.`type`;");
+                $stmt->bind_param("s", $textFilter);
             }
 
             $stmt->execute();
 
             return $stmt->get_result();
             
+        }
+
+        public function updateProduct($title, $price, $type, $imagePath, $supply)
+        {
+            $title = filter_var($title, FILTER_SANITIZE_STRING);
+            $price = filter_var($price, FILTER_SANITIZE_NUMBER_INT);
+            $type = filter_var($type, FILTER_SANITIZE_NUMBER_INT);
+            $supply = filter_var($supply, FILTER_SANITIZE_NUMBER_INT);
+            if ($imagePath === false) {
+                $imagePath = $_SESSION["productInfo"]["imagePath"];
+            } else {
+                $imagePath = filter_var($imagePath, FILTER_SANITIZE_STRING);
+            }
+            
+            $stmt = $this->connection->prepare("UPDATE `products` 
+                SET  `title` = ?, `price` = ?, `type` = ?, `supply` = ?, `imagePath` = ?
+                WHERE `id` = ?;");
+            
+            $id = $_SESSION["productInfo"]["id"];
+            $stmt->bind_param("siiisi", $title, $price, $type, $supply, $imagePath, $id);
+            
+            $stmt->execute();
+            unset($_SESSION["productInfo"]);
+
+        }
+
+        public function getProductByID($id)
+        {
+            if (!is_numeric($id)) {
+                return false;
+            }
+
+            $stmt = $this->connection->prepare("SELECT `products`.`id`, `products`.`title`, `products`.`price`, `products`.`imagePath`, `products`.`supply`, `producttypes`.`name` AS `type`
+            FROM `products` 
+                LEFT JOIN `producttypes` ON `products`.`type` = `producttypes`.`id`
+                WHERE `products`.`id` = ? 
+                ORDER BY `products`.`type`;");
+
+            $stmt->bind_param("i", $id);
+            
+            $stmt->execute();
+
+            return $stmt->get_result();
         }
 
         public function updateUserInfo($fname, $lname, $email)
