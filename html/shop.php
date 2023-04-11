@@ -81,34 +81,32 @@ include('utility/DBConnection.php');
                 $products = $conn->getProducts($type, $textFilter);
 
                 while ($row = $products->fetch_assoc()) {
-                echo '<div class="productBox">
-                <div>
-                    <a href="cart.html">
-                        <img src="' . $row["imagePath"] . '" class="productBoxImage" title="' . $row["type"] . '" alt="' . $row["type"] . '">
-                        <div class="productName">
-                        ' . $row["title"] . '
-                        </div>
-                    </a>
-
-                </div>
-                <div>
-                    <div class="productCost">
-                    ' . number_format($row["price"], 0, ',', ' ') . "Ft" . '
+                    echo '<div class="productBox">
+                    <div>
+                        <a href="cart.html">
+                            <img src="' . $row["imagePath"] . '" class="productBoxImage" title="' . $row["type"] . '" alt="' . $row["type"] . '">
+                            <div class="productName">
+                            ' . $row["title"] . '
+                            </div>
+                        </a>
+                
                     </div>
-                    <div class="productRating">
-                        &starf; &starf; &starf; &starf; &star;
-                    </div>
-                </div>
-                <div>
-                    <a class="kosarba" href="cart.html">
-                        <div>
-                            Kosárba
-
+                    <div>
+                        <div class="productCost">
+                        ' . number_format($row["price"], 0, ',', ' ') . "Ft" . '
                         </div>
-                        <img src="../img/shopping-cart-icon.png" alt="Bevásárlókocsi">
-                    </a>
-                </div>
-                </div>';
+                        <div class="productRating">
+                            &starf; &starf; &starf; &starf; &star;
+                        </div>
+                    </div>
+                    <div>
+                        <form method="post" action="cart.php">
+                            <input type="hidden" name="product_id" value="' . $row["id"] . '">
+                            <input type="number" name="quantity" value="1" min="1">
+                            <button type="submit">Kosárba</button>
+                        </form>
+                    </div>
+                    </div>';
                 }
         ?>
         
