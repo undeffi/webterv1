@@ -149,7 +149,7 @@
             <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
         </div>
         <div id="formbox">
-            <form method="post" action="register.php">
+            <form class="normalForm" method="post" action="register.php">
                 <label class="formname"> Regisztráció</label>
                 <div class="forms">
                     <label for="fname" class="required-label">Vezetéknév:</label><br>

@@ -88,7 +88,7 @@
     <!-- tartalom -->
     <main>
         <div id="formbox">
-            <form method="post" action="login.php"> <!-- action="login"-->
+            <form class="normalForm" method="post" action="login.php"> <!-- action="login"-->
                 <label class="formname"> Bejelentkezés</label>
                 <div class="forms">
                     <label for="email" class="required-label">Email cím:</label><br>

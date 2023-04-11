@@ -84,7 +84,7 @@ header h1 {
 #active {
     background-color: rgb(60, 150, 240);
 }
-.navlinks:hover {
+.navlinks:hover{
     background-color: rgb(188, 188, 188);
 }
 #active:hover {
@@ -104,7 +104,7 @@ form label {
     font-size: small;
     color: black;
 }
-input[type="text"],
+.normalForm input[type="text"],
 input[type="password"]{
     width: 100%;
     margin-bottom: 10px;
@@ -125,7 +125,6 @@ input[type="reset"] {
     padding: 14px 16px;
     border: 1px solid #d7d7d7;
     font-size: 15px;
-
     background-color: orange;
     color: black;
     cursor: pointer;
@@ -134,7 +133,7 @@ input[type="submit"]:hover,
 input[type="reset"]:hover {
     background-color: rgb(49, 134, 219);
 }
-form {
+.normalForm {
     display: block;
     width: 300px;
     background-color: white;
@@ -307,14 +306,29 @@ div > .kosarba{
     padding: 10px;
     float: left;
 }
-
-.kosarba img {
+.kosarba button{
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    float: right;
+}
+.kosarba button img {
     height: 30px;
     width: 30px;
     float: right;
     margin-right: 20px;
     margin-top: 5px;
 }
+
+.kosarba input[type="number"] {
+    width: 50%;
+    height: 100%;
+    font-size: 16px;
+    background-color: orange;
+    border: 1px solid black;
+    box-sizing: border-box;
+  }
 
 .attributeTable td,
 th {
@@ -389,3 +403,80 @@ footer {
     width: 200px;
     height: 200px;
 }
+
+.assignment{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+    border-spacing: 30px;
+    border: 1px solid;
+    flex-basis: calc(70% - 10px);
+}
+.btnFrom {
+    background-color: rgb(60, 150, 240);
+    color: black;
+    font-size: 16px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btnFrom:hover, .options:hover {
+    background-color: rgb(49, 134, 219);
+  }
+  .options{
+    background-color: rgb(60, 150, 240);
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    width: 7vw;
+    min-width: fit-content;
+    text-decoration: none;
+    border-radius: 20px;
+    margin: 1vw;
+    border: 1px solid #d7d7d7;
+  }
+
+  select {
+    width: 42%;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 35px;
+    border: 1px solid #d7d7d7;
+    font-size: 15px;
+    background-color: white;
+    color: #717171;
+  }
+
+  .search{
+    padding-top: 20px;
+    width: 80vw;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+    margin: auto;
+    min-width: 300px;
+    background-color: white;
+
+  }
+
+  .search label, .search select, .search input {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+
+  .search input[type="text"]{
+    width: 42%;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 35px;
+    border: 1px solid #d7d7d7;
+    box-sizing: border-box;
+    font-size: 15px;
+    background-color: white;
+    color: #717171;
+  }

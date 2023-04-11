@@ -107,7 +107,7 @@
             <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
         </div>
         <div id="formbox">
-            <form method="post" action="changePassword.php">
+            <form class="normalForm" method="post" action="changePassword.php">
                 <label class="formname">Jelszó módosítása</label>
                 <div class="forms">
                     <label for="pw" class="required-label">Jelenlegi jelszó:</label><br>

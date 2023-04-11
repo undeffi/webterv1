@@ -35,23 +35,7 @@
     <div class="adminPage">
          <a class="navlinks" href="productAdd.php">Termékek hozzáadása</a> 
          <a class="navlinks" href="productBrowse.php">Termékek módosítása</a>
-    </div>
-    <div class="contentContainer">
-    <?php
-        $users = $conn->getUsers();
-
-
-        while ($row = $users->fetch_assoc()) {
-            $content = '<div style="width: 100%">';
-
-            $content .= '<p>id: ' . $row["id"] . ' fname: ' . $row["fname"] . ' lname: ' . $row["lname"] . ' email: ' . $row["email"] . '</p>';
-
-
-            $content .= '<a href="userDelete.php?id=' . $row["id"] . '">Törlés</a></div>';
-            echo $content;
-        }
-
-    ?>
+         <a class="navlinks" href="profileManagement.php">Felhasználók kezelése</a>
     </div>
     </main>
 </body>

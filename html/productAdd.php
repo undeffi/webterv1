@@ -102,7 +102,7 @@
     <!-- tartalom -->
     <main>
         <div id="formbox">
-            <form method="post" action="productAdd.php" enctype="multipart/form-data"> <!-- action="login"-->
+            <form class="normalForm" method="post" action="productAdd.php" enctype="multipart/form-data"> <!-- action="login"-->
                 <label class="formname">Új termék</label>
                 <div class="forms">
                     <label for="pTitle">Leírás</title><br>

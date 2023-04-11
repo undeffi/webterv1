@@ -30,10 +30,10 @@ include('utility/DBConnection.php');
             <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
         </div>
 
-        <div>
+        <div class="search"> 
             <?php
                 $productTypes = $conn->getProductTypes();
-
+                
                 echo '<form style="width = 100%" action="shop.php" method="get">
                 <label for="type">Típus</label>
                 <select name="type" id="type">
@@ -49,7 +49,7 @@ include('utility/DBConnection.php');
                 }
                 
                 echo '</select>
-                <input type="text" ';
+                <input type="text" placeholder="Keresés" ';
                 
                 if (isset($_GET["textFilter"])) {
                     echo 'value="' . $_GET["textFilter"] . '"';
@@ -61,10 +61,8 @@ include('utility/DBConnection.php');
             ?>
                 <input type="submit" value="Keresés">
                 </form>
-        </div>
-
-    <div class="contentContainer">
-        
+            </div>
+            <div class="contentContainer">
         <?php
             
                 $type = false;
@@ -100,16 +98,17 @@ include('utility/DBConnection.php');
                         </div>
                     </div>
                     <div>
-                        <form method="post" action="cart.php">
+                        <form class="kosarba" method="post" action="cart.php">
                             <input type="hidden" name="product_id" value="' . $row["id"] . '">
                             <input type="number" name="quantity" value="1" min="1">
-                            <button type="submit">Kosárba</button>
+                            <button type="submit">
+                                <img src="../img/shopping-cart-icon.png" alt="Kosárba">
+                            </button>
                         </form>
                     </div>
                     </div>';
                 }
         ?>
-        
     </div>
     </main>
     <!-- footer -->

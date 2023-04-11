@@ -65,7 +65,7 @@
   </div>
   <div id="formbox">
     <?php
-        $content = '<form method="post" action="userDelete.php';
+        $content = '<form class="normalForm" method="post" action="userDelete.php';
 
         if (isset($_GET["id"])) {
             $content .= '?id=' . $_GET["id"];
@@ -76,7 +76,7 @@
                 <label class="formname">Fiók törlése</label>
                 <div class="forms">
                     <label for="pw" class="required-label">Jelszó:</label><br>
-                    <input type="password" id="pw" name="pw"  placeholder="Jelszó" required><br>
+                    <input type="password" id="pw" name="pw"  placeholder="Aktuális felhasználó jelszava" required><br>
                     <span class="error"><?php echo $pwErr; ?></span>
                     <input type="submit" value="Megerősítés">
                     <a class="notyet" href="profile.php">Vissza a profilomhoz</a>

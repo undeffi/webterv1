@@ -28,29 +28,28 @@
   <div id="scroll-to-top">
     <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
   </div>
+
   <div style="text-align: center;">
-    <?php
-      echo "<table>
+    <table class="assignment">
       <tr>
-        <td>Név:</td>
-        <td>" . $_SESSION["userData"]->getFname() . " " . $_SESSION["userData"]->getLname() . "</td>
+        <td colspan="2" >Név:</td>
+        <td colspan="2" ><?php echo $_SESSION["userData"]->getFname() . " " . $_SESSION["userData"]->getLname() ?> </td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
+        <td colspan="2" >Email cím:</td>
+        <td colspan="2" ><?php echo $_SESSION["userData"]->getEmail()?></td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
+        <td><a class='options' href='userInfoUpdate.php'>Adatfrissítés</a></td>
+        <td><a class='options' href='changePassword.php'>Jelszó megváltoztatása</a></td>
+        <td><a class='options' href='userDelete.php'>Fiók deaktiválása</a></td>
+        <td><a class='options' style='color:red;' href='logout.php'>Kilépés</a></td>
+        
       </tr>
-      
-      </table>"
-    ?>
-    <a href="userInfoUpdate.php">Adatfrissítés</a><br>
-    <a href="changePassword.php">Jelszó megváltoztatása</a><br>
-    <a href="logout.php">Kijelentkezés</a><br>
-    <a href="userDelete.php">Fiók deaktiválása</a>
-    <table>
+    </table>
+
+    <table class="assignment">
+      <h1><strong>Rendeléseim<strong></h1>
       <thead>
         <tr>
           <th>Termék megnevezése:</th>

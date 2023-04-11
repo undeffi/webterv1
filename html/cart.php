@@ -66,7 +66,7 @@
   }else{
 ?>
 <div class="cart-content">
-  <table>
+  <table class="assignment">
     <thead>
       <tr>
         <th>Termék neve</th>
@@ -82,24 +82,24 @@
           $total += $subtotal;?>
           <tr>
             <td><?php echo $item['title']; ?></td>
-            <td><?php echo number_format($item['price'], 0, '.', ' '); ?> Ft</td>
+            <td><?php echo number_format($item['price']); ?> Ft</td>
             <td><?php echo $item['quantity']; ?></td>
-            <td><?php echo number_format($subtotal, 0, '.', ' '); ?> Ft</td>
+            <td><?php echo number_format($subtotal); ?> Ft</td>
             <td>
-              <form style="background: rgb(174, 174, 174);" method="POST">
+              <form method="POST">
                 <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
-                <button type="submit" name="remove_item">Eltávolítás</button>
+                <button class="btnFrom" type="submit" name="remove_item">Eltávolítás</button>
               </form>
             </td>
           </tr>
       <?php } ?>
       <tr>
         <td colspan="3" class="text-right"> <strong>Összesen: </strong></td>
-        <td><strong><?php echo number_format($total, 0, '.', ' '); ?> Ft </strong></td>
+        <td><strong><?php echo number_format($total); ?> Ft </strong></td>
         <td>
-          <form style="background: rgb(174, 174, 174);" method="POST">
+          <form method="POST">
               <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
-              <button type="submit" name="order">Rendelés</button>
+              <button class="btnFrom" type="submit" name="order">Rendelés</button>
           </form>
         </td>
       </tr>
