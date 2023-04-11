@@ -43,7 +43,7 @@ include('utility/DBConnection.php');
                 $productTypes = $conn->getProductTypes();
                 
 
-                echo '<form style="width = 100%" action="productBrowse.php" method="get">
+                echo '<div class="search"> <form style="width = 100%" action="productBrowse.php" method="get">
                 <label for="type">Típus</label>
                 <select name="type" id="type">
                 <option value="false">Válassz</option>';
@@ -58,7 +58,7 @@ include('utility/DBConnection.php');
                 }
                 
                 echo '</select>
-                <input type="text" ';
+                <input type="text" placeholder="Keresés"';
                 
                 if (isset($_GET["textFilter"])) {
                     echo 'value="' . $_GET["textFilter"] . '"';
@@ -70,6 +70,7 @@ include('utility/DBConnection.php');
             ?>
                 <input type="submit" value="Keresés">
                 </form>
+            </div>
         </div>
 
     <div class="contentContainer">

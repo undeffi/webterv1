@@ -119,7 +119,7 @@
     <!-- tartalom -->
     <main>
         <div id="formbox">
-            <form class="normalForm" method="post" action="productModify.php" enctype="multipart/form-data"> <!-- action="login"-->
+            <form class="normalForm" method="post" action="productModify.php" enctype="multipart/form-data">
                 <label class="formname">Termék módosítása</label>
                 <div class="forms">
                     <label for="pTitle">Leírás</title><br>
