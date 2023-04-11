@@ -172,9 +172,9 @@
             $fname = filter_var($fname, FILTER_SANITIZE_STRING);
             $lname = filter_var($lname, FILTER_SANITIZE_STRING);
             $email = filter_var($email, FILTER_SANITIZE_STRING);
-
+            $user_id = $_SESSION["userData"]->getId();
             $stmt = $this->connection->prepare("UPDATE `users` SET `fname` = ?, `lname` = ?, `email` = ? WHERE `id` = ? ;");
-            $stmt->bind_param("sssi", $fname, $lname, $email, $_SESSION["userData"]->getId());
+            $stmt->bind_param("sssi", $fname, $lname, $email, $user_id);
             $stmt->execute();
 
             if ($stmt->errno == 0) {
@@ -221,6 +221,61 @@
             $stmt->bind_param("i", $id);
             $stmt->execute();
         }
-    }
+    
 
+        public function addOrder($total_price){
+            $user_id = $_SESSION["userData"]->getId();
+            $stmt = $this->connection->prepare("INSERT INTO `orders` (`user_id`, `total_price`)VALUES (?, ?);");
+            $stmt->bind_param("ii", $user_id, $total_price);
+            $stmt->execute();
+
+            $order_id = $stmt->insert_id;
+
+            foreach ($_SESSION['cart'] as $item) {
+                $product_id = $item['id'];
+                $stmt = $this->connection->prepare("SELECT title FROM products WHERE id = ?");
+                $stmt->bind_param("i", $product_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                $product_title = $row['title'];
+                $quantity = $item['quantity'];
+                $stmt = $this->connection->prepare("INSERT INTO order_items (order_id, product_id, product_title, quantity) VALUES (?, ?, ?, ?)");
+                $stmt->bind_param("iisi", $order_id, $product_id, $product_title, $quantity);
+                $stmt->execute();
+            }
+        }
+
+        public function getOrder(){
+            $user_id = $_SESSION["userData"]->getId();
+            $stmt = $this->connection->prepare("SELECT * FROM orders WHERE user_id = ?");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $orders_result = $stmt->get_result();
+            if ($orders_result->num_rows === 0) {
+                echo "<tr> <td>" ."Nincs rendelés!" . "<br>" . "</td> </tr>";
+                return null;
+            }
+            while ($order_row = $orders_result->fetch_assoc()) {
+                $order_id = $order_row['order_id'];
+        
+                $stmt = $this->connection->prepare("SELECT * FROM order_items WHERE order_id = ?");
+                $stmt->bind_param("i", $order_id);
+                $stmt->execute();
+                $order_items_result = $stmt->get_result();
+
+                if ($order_items_result->num_rows === 0) {
+                    echo "<tr> <td>" ."Nincs rendelés!" . "<br>" . "</td> </tr>";
+                    continue;
+                }
+                while ($order_item_row = $order_items_result->fetch_assoc()) {
+                    echo              "<tr> <td>" . $order_item_row['product_title'] . "</td>" .
+                    "<td>" . $order_item_row['quantity'] . "<br>" . "</td>  </tr>";
+                }
+            }
+        
+            return $orders_result;
+        }
+    }
 ?>
+

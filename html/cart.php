@@ -61,6 +61,10 @@
 ?>
 
 <!-- cart content -->
+<?php if(empty($_SESSION['cart'])){
+    echo "<center> <h1> Üres a kosár. </h1> </center>";
+  }else{
+?>
 <div class="cart-content">
   <table>
     <thead>
@@ -91,16 +95,49 @@
       <?php } ?>
       <tr>
         <td colspan="3" class="text-right"> <strong>Összesen: </strong></td>
-        <td colspan="2"><strong><?php echo number_format($total, 0, '.', ' '); ?> Ft </strong></td>
+        <td><strong><?php echo number_format($total, 0, '.', ' '); ?> Ft </strong></td>
+        <td>
+          <form style="background: rgb(174, 174, 174);" method="POST">
+              <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
+              <button type="submit" name="order">Rendelés</button>
+          </form>
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
 <?php 
+  }
 if (isset($_POST['remove_item'])) {
   $product_id = $_POST['product_id'];
   unset($_SESSION['cart'][$product_id]);
   header("Location: cart.php");
+}
+
+if (isset($_POST['order'])) {
+  $errmsg = "<strong>" . "Nem sikerült feladni a rendelést!" . "</strong>". "<br>";
+  $err = "";
+  if(empty($_SESSION['cart'])){
+    $err = true;
+    $errmsg .= "Nincs semmi a kosárban!" . "<br>"; 
+  }
+  foreach ($_SESSION['cart'] as $item) {
+    $result = $conn->getProductByID($item['id']);
+    $maxquant = $result->fetch_assoc();
+    if($item['quantity'] > $maxquant['supply']){
+      $errmsg .= "Nincs ennyi a(z) " . $item['title'] ." tárgyból! Raktáron jelenleg " . $maxquant['supply'] . " darab van." . "<br>";
+      $err = true;
+    }
+  }
+  if(!$err){
+    $conn->addOrder($total);
+    echo "Sikeres rendelés!";
+    unset($_SESSION['cart']);
+    unset($_POST['order']);
+    header("Location: cart.php");
+  }else{
+    echo $errmsg;
+  }
 }
 ?>
 </main>

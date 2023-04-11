@@ -1,6 +1,6 @@
 <?php
-  include('utility/UserData.php');
-
+  include('utility/dbConnection.php');
+  $conn = new DBConnection();
   session_start();
 
   if (!isset($_SESSION["userData"])) {
@@ -50,6 +50,17 @@
     <a href="changePassword.php">Jelszó megváltoztatása</a><br>
     <a href="logout.php">Kijelentkezés</a><br>
     <a href="userDelete.php">Fiók deaktiválása</a>
+    <table>
+      <thead>
+        <tr>
+          <th>Termék megnevezése:</th>
+          <th>Darab:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php $orders = $conn->getOrder() ?>
+      </tbody>    
+    </table>
   </div>
 </main>
 <!-- footer -->
