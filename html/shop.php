@@ -79,14 +79,22 @@ include('utility/DBConnection.php');
                 $products = $conn->getProducts($type, $textFilter);
 
                 while ($row = $products->fetch_assoc()) {
+                    $rating = $conn->getAvarageRating($row["id"]); 
                     echo '<div class="productBox">
                     <div>
-                        <a href="cart.html">
-                            <img src="' . $row["imagePath"] . '" class="productBoxImage" title="' . $row["type"] . '" alt="' . $row["type"] . '">
-                            <div class="productName">
-                            ' . $row["title"] . '
-                            </div>
-                        </a>
+                        
+                            <form class="popup" method="post" action="productRating.php">
+                            <input type="hidden" name="product_id" value="' . $row["id"] . '">
+                            
+
+                            <button type="submit">
+                                <img src="' . $row["imagePath"] . '" class="productBoxImage" title="' . $row["type"] . '" alt="' . $row["type"] . '">
+                                <div class="productName">
+                                    ' . $row["title"] . '
+                                </div>
+                            </button>
+                        </form>                           
+                        
                 
                     </div>
                     <div>
@@ -94,7 +102,7 @@ include('utility/DBConnection.php');
                         ' . number_format($row["price"], 0, ',', ' ') . "Ft" . '
                         </div>
                         <div class="productRating">
-                            &starf; &starf; &starf; &starf; &star;
+                        ' . str_repeat(html_entity_decode('&starf;'), round($rating)) . str_repeat(html_entity_decode('&star;'), 5-round($rating)) . ' 
                         </div>
                     </div>
                     <div>

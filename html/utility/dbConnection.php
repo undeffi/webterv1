@@ -276,6 +276,40 @@
         
             return $orders_result;
         }
+
+        public function existingRating($user_id, $product_id){
+            $stmt = $this->connection->prepare("SELECT * FROM ratings WHERE user_id = ? AND product_id = ?");
+            $stmt->bind_param("ii", $user_id, $product_id);
+            $stmt->execute();
+            $rating = $stmt->get_result();
+            if ($rating->num_rows === 0) {
+                return false;
+            }
+            return true;
+        }
+
+        public function newRating($user_id, $product_id, $rating){
+            $stmt = $this->connection->prepare("INSERT INTO ratings (user_id, product_id, rating) VALUES (?, ?, ?)");
+            $stmt->bind_param("iii", $user_id, $product_id, $rating);
+            $stmt->execute();
+        }
+
+        public function getAvarageRating($product_id){
+            $stmt = $this->connection->prepare("SELECT rating FROM ratings WHERE product_id = ?");
+            $stmt->bind_param("i", $product_id);
+            $stmt->execute();
+            $rating = $stmt->get_result();
+            $i = 0;
+            if($rating->num_rows === 0){
+                return 0;
+            }else{
+                while ($rating_row = $rating->fetch_assoc()) {
+                    $i += $rating_row['rating'];
+                    
+                }
+                return $i / $rating->num_rows;
+            }
+        }
     }
 ?>
 
