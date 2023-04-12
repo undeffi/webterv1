@@ -67,6 +67,11 @@ include('utility/DBConnection.php');
                         <input type="submit" value="Értékelés">
                         <?php 
                             if (isset($_POST['product_id']) && isset($_POST['rating'])) {
+
+                                if (!isset($_SESSION["userData"])) {
+                                    header("Location: login.php");
+                                  }
+                                  
                                 $product_id = $_POST['product_id'];
                                 $rating = $_POST['rating'];
                                 $user_id = $_SESSION["userData"]->getId();

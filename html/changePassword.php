@@ -8,7 +8,8 @@
     }
 
     
-    $pwErr = $pw1Err = $pw2Err = "";
+    $pwErr = "";
+    $pwLenErr = $pwContentErr = $pw2Err = false;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $oldPass = $pass = "";
 
@@ -26,7 +27,7 @@
             } else {
             $pwErr = "Hibás jelszó.<br>";
             $err = true;
-        }
+            }
 
             
         } else {
@@ -37,25 +38,25 @@
 
         if (isset($_POST["pw1"]) && trim($_POST["pw1"]) != "") {
             $_POST["pw1"] = trim($_POST["pw1"]);
-            if (strlen($_POST["pw1"]) >= 8) {
-                if (strlen($_POST["pw1"]) <= 50) {
+            if (strlen(utf8_decode($_POST["pw1"])) >= 8) {
+                if (strlen(utf8_decode($_POST["pw1"])) <= 50) {
                     if (filter_var($_POST["pw1"], FILTER_SANITIZE_STRING)) {
                         $pass = $_POST["pw1"];
                     } else {
-                        $pw1Err = "Érvénytelen jelszó. Megengedett karakterek: aA-zZ 0-9 -_!%/=()<>#" . "<br>";
+                        $pwContentErr = true;
                         $err = true;
                     }
                 } else {
-                    $pw1Err = "A maximum hossz 50 karakter";
+                    $pwLenErr = true;
                     $err = true;
                 }
             } else {
-                $pw1Err = "A minimum hossz 8 karakter";
+                $pwLenErr = true;
                 $err = true;
             }
             
         } else {
-            $pw1Err = "Ezt a mezőt kötelező kitölteni";
+            $pwLenErr = true;
             $err = true;
         }
 
@@ -63,11 +64,11 @@
             if (trim($_POST["pw2"]) === trim($_POST["pw1"])) {
 
             } else {
-                $pw2Err = "A két jelszó nem egyezik";
+                $pw2Err = true;
                 $err = true;
             }
         } else {
-            $pw2Err = "Ezt a mezőt kötelező kitölteni";
+            $pw2Err = true;
             $err = true;
         }
 
@@ -114,11 +115,12 @@
                     <input type="password" id="pw" name="pw"  placeholder="Jelenlegi jelszó" required><br>
                     <span class="error"><?php echo $pwErr; ?></span>
                     <label for="pw1" class="required-label">Jelszó:</label><br>
+                    <span class= <?php echo $pwLenErr ? '"error"' : '"success"' ?>>8-50 karakter</span>
+                    <span class= <?php echo $pwContentErr ? '"error"' : '"success"' ?>>Megengedett: magyar kis és nagybetűk és speciális karakterek</span>
                     <input type="password" id="pw1" name="pw1"  placeholder="Új jelszó" required><br>
-                    <span class="error"><?php echo $pw1Err; ?></span>
                     <label for="pw2" class="required-label">Jelszó újra:</label><br>
+                    <span class= <?php echo $pw2Err ? '"error"' : '"success"' ?>>A két jelszónak egyeznie kell</span>
                     <input type="password" id="pw2" name="pw2"  placeholder="Új jelszó újra" required><br>
-                    <span class="error"><?php echo $pw2Err; ?></span>
                     <input type="submit" value="Mentés">
                     <a class="notyet" href="profile.php">Vissza a profilomhoz</a>
                 </div>

@@ -7,8 +7,8 @@
     header("Location: login.php");
     }
 
-    
-    $fNameErr = $lNameErr = $emailErr = $pwErr = $pw2Err = "";
+    $pwErr = false;
+    $fnameLenErr = $fnameContentErr = $lnameLenErr = $lnameContentErr = $emailErr = $emailAlreadyUsedErr = false;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cleanfname = $cleanlname = $cleanemail = $pass = "";
 
@@ -18,92 +18,84 @@
 
         if (isset($_POST["fname"]) && trim($_POST["fname"]) != "") {
             $_POST["fname"] = trim($_POST["fname"]);
-            if (strlen($_POST["fname"]) >= 5) {
-                if (strlen($_POST["fname"]) <= 50) {
-                    if (preg_match("/^[a-zA-Z-' ]*$/",$_POST["fname"])) {
+            if (strlen(utf8_decode($_POST["fname"])) >= 2) {
+                if (strlen(utf8_decode($_POST["fname"])) <= 50) {
+                    if (preg_match("/^[a-zA-ZáÁéÉíÍóÓőŐúÚűŰ' ]*$/",$_POST["fname"])) {
                         $cleanfname = $_POST["fname"];
                     } else {
-                        $fNameErr = "Ide csak betűket írhatsz";
+                        $fnameContentErr = true;
                         $err = true;
                     }
                 } else {
-                    $fNameErr = "A maximum hossz 50 karakter";
+                    $fnameLenErr = true;
                     $err = true;
                 }
             } else {
-                $fNameErr = "A minimum hossz 5 karakter";
+                $fnameLenErr = true;
                 $err = true;
             }
             
         } else {
-            $fNameErr = "Ezt a mezőt kötelező kitölteni";
+            $fnameLenErr = true;
             $err = true;
         }
 
         if (isset($_POST["lname"]) && trim($_POST["lname"]) != "") {
             $_POST["lname"] = trim($_POST["lname"]);
-            if (strlen($_POST["lname"]) >= 5) {
-                if (strlen($_POST["lname"]) <= 50) {
-                    if (preg_match("/^[a-zA-Z-' ]*$/",$_POST["lname"])) {
+            if (strlen(utf8_decode($_POST["lname"])) >= 2) {
+                if (strlen(utf8_decode($_POST["lname"])) <= 50) {
+                    if (preg_match("/^[a-zA-ZáÁéÉíÍóÓőŐúÚűŰ' ]*$/",$_POST["lname"])) {
                         $cleanlname = $_POST["lname"];
                     } else {
-                        $lNameErr = "Ide csak betűket írhatsz" . "<br>";
+                        $lnameContentErr = true;
                         $err = true;
                     }
                 } else {
-                    $lNameErr = "A maximum hossz 50 karakter" . "<br>";
+                    $lnameLenErr = true;
                     $err = true;
                 }
             } else {
-                $lNameErr = "A minimum hossz 5 karakter" . "<br>";
+                $lnameLenErr = true;
                 $err = true;
             }
             
         } else {
-            $lNameErr = "Ezt a mezőt kötelező kitölteni" . "<br>";
+            $lnameLenErr = true;
             $err = true;
         }
 
-
-        $cleanemail = "";
         if (isset($_POST["email"]) && trim($_POST["email"]) != "") {
             $_POST["email"] = trim($_POST["email"]);
 
             if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-                 
-                 $cleanemail = $_POST["email"];
+                 if (!$conn->doesUserExist(trim($_POST["email"]))) {
+                    $cleanemail = $_POST["email"];
+                    
+                 } else {
+                    $emailAlreadyUsedErr = true;
+                    $err = true;
+                 }
             } else {
-                $emailErr = "Érvénytelen email cím";
+                $emailErr = true;
                 $err = true;
             }
         } else {
-            $emailErr = "Ezt a mezőt kötelező kitölteni";
+            $emailErr = true;
             $err = true;
         }
 
         if (isset($_POST["pw"]) && trim($_POST["pw"]) != "") {
             $_POST["pw"] = trim($_POST["pw"]);
-            if (strlen($_POST["pw"]) >= 8) {
-                if (strlen($_POST["pw"]) <= 50) {
-                    if (filter_var($_POST["pw"], FILTER_SANITIZE_STRING)) {
-                        $pass = $_POST["pw"];
-                        if (password_verify($pass, $_SESSION["userData"]->getPasswordHash())) {
-                            # code...
-                        } else {
-                            $pwErr = "Hibás jelszó.<br>";
-                            $err = true;
-                        }
-                        
-                    } else {
-                        $pwErr = "Érvénytelen jelszó. Megengedett karakterek: aA-zZ 0-9 -_!%/=()<>#" . "<br>";
-                        $err = true;
-                    }
+            if (filter_var($_POST["pw"], FILTER_SANITIZE_STRING)) {
+                $pass = $_POST["pw"];
+                if (password_verify($pass, $_SESSION["userData"]->getPasswordHash())) {
+                    # code...
                 } else {
-                    $pwErr = "A maximum hossz 50 karakter";
+                    $pwErr = "Hibás jelszó.<br>";
                     $err = true;
                 }
             } else {
-                $pwErr = "A minimum hossz 8 karakter";
+                $pwErr = "Érvénytelen jelszó. Megengedett karakterek: aA-zZ 0-9 -_!%/=()<>#" . "<br>";
                 $err = true;
             }
             
@@ -151,41 +143,48 @@
                 <label class="formname">Adatok módosítása</label>
                 <div class="forms">
                     <label for="fname" class="required-label">Vezetéknév:</label><br>
+                    <span class= <?php echo $fnameLenErr ? '"error"' : '"success"' ?>>2-50 karakter</span>
+                    <span class= <?php echo $fnameContentErr ? '"error"' : '"success"' ?>>Magyar kis és nagybetűk</span>
                     <input type="text" id="fname" name="fname"  placeholder="Vezetéknév" required
                     <?php
                         if (isset($_POST["fname"])) {
-                            echo 'value="' . $_POST["fname"] . '"';
+                            echo 'value="' . filter_var($_POST["fname"], FILTER_SANITIZE_STRING) . '"';
                         } else {
                             echo 'value="' . $_SESSION["userData"]->getFname() . '"';
                         }
                     ?>
                     ><br>
-                    <span class="error"><?php echo $fNameErr; ?></span>
                     <label for="lname" class="required-label">Keresztnév:</label><br>
+                    <span class= <?php echo $lnameLenErr ? '"error"' : '"success"' ?>>2-50 karakter</span>
+                    <span class= <?php echo $lnameContentErr ? '"error"' : '"success"' ?>>Magyar kis és nagybetűk</span>
                     <input type="text" id="lname" name="lname"  placeholder="Keresztnév" required 
                     <?php
                         if (isset($_POST["lname"])) {
-                            echo 'value="' . $_POST["lname"] . '"';
+                            echo 'value="' . filter_var($_POST["lname"], FILTER_SANITIZE_STRING)  . '"';
                         } else {
                             echo 'value="' . $_SESSION["userData"]->getLname() . '"';
                         }
                     ?>
                     ><br>
-                    <span class="error"><?php echo $lNameErr; ?></span>
                     <label for="email" class="required-label">Email cím:</label><br>
+                    <span class= <?php echo $emailErr ? '"error"' : '"success"' ?>>Érvényes email cím</span>
+                    <span class= <?php echo $emailAlreadyUsedErr ? '"error"' : '"success"' ?>>Az oldalon még nem használt email cím</span>
                     <input type="text" id="email" name="email"  placeholder="Email cím" required 
                     <?php
                         if (isset($_POST["email"])) {
-                            echo 'value="' . $_POST["email"] . '"';
+                            echo 'value="' . filter_var($_POST["email"], FILTER_SANITIZE_STRING)  . '"';
                         } else {
                             echo 'value="' . $_SESSION["userData"]->getEmail() . '"';
                         }
                     ?>
                     ><br>
-                    <span class="error"><?php echo $emailErr; ?></span>
                     <label for="pw" class="required-label">Jelszó a megerősítéshez:</label><br>
                     <input type="password" id="pw" name="pw"  placeholder="Jelszó" required><br>
-                    <span class="error"><?php echo $pwErr; ?></span>
+                    <?php 
+                    if ($pwErr !== false) {
+                        echo '<span class="error">' . $pwErr . '</span>';
+                    }
+                    ?>
                     <input type="submit" value="Mentés">
                     <a class="notyet" href="profile.php">Vissza a profilomhoz</a>
                 </div>

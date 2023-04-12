@@ -392,6 +392,13 @@ th {
     display: block;
 }
 
+.success {
+    font-size: small;
+    color: green;
+    margin-left: 3px;
+    display: block;
+}
+
 /*=== Footer ===*/
 footer {
     background-color: orange;
