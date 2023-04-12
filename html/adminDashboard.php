@@ -33,9 +33,10 @@
     <!-- tartalom -->
     <main>
     <div class="adminPage">
-         <a class="navlinks" href="productAdd.php">Termékek hozzáadása</a> 
-         <a class="navlinks" href="productBrowse.php">Termékek módosítása</a>
-         <a class="navlinks" href="profileManagement.php">Felhasználók kezelése</a>
+        <a class="navlinks" href="productAdd.php">Termékek hozzáadása</a>
+        <a class="navlinks" href="productBrowse.php">Termékek módosítása</a>
+        <a class="navlinks" href="profileManagement.php">Felhasználók kezelése</a>
+        <a class="navlinks" href="orderManagement.php">Rendelések kezelése</a>
     </div>
     </main>
 </body>

@@ -44,6 +44,8 @@ include('utility/DBConnection.php');
                 
 
                 echo '<div class="search"> <form style="width = 100%" action="productBrowse.php" method="get">
+                <p style="font-size: small"><a style="color: orange" href="adminDashboard.php">Vissza az előző oldalra</a></p>
+
                 <label for="type">Típus</label>
                 <select name="type" id="type">
                 <option value="false">Válassz</option>';

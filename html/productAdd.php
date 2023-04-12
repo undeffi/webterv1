@@ -103,9 +103,11 @@
     <main>
         <div id="formbox">
             <form class="normalForm" method="post" action="productAdd.php" enctype="multipart/form-data">
+                <p style="font-size: small"><a style="color: orange" href="adminDashboard.php">Vissza az előző oldalra</a></p>
+
                 <label class="formname">Új termék</label>
                 <div class="forms">
-                    <label for="pTitle">Leírás</title><br>
+                    <label for="pTitle">Termék megnevezése</label><br>
                     <textarea id="pTitle" name="pTitle" cols="30" rows="10" maxlength="90" style="resize:none"></textarea><br>
                     <label for="type">Típus</label><br>
                     <select id="type" name="type">

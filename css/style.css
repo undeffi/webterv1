@@ -27,6 +27,7 @@ header {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 header h1 {
     margin: 10px;
     text-align: center;
@@ -50,6 +51,7 @@ header h1 {
     left: 0;
     right: 0;
 }
+
 .navlinks {
     background-color: white;
     float: left;
@@ -65,7 +67,7 @@ header h1 {
     border: 1px solid #d7d7d7;
 }
 
-#logout{
+#logout {
     color: red;
 }
 
@@ -81,12 +83,15 @@ header h1 {
         margin: 0;
     }
 }
+
 #active {
     background-color: rgb(60, 150, 240);
 }
-.navlinks:hover{
+
+.navlinks:hover {
     background-color: rgb(188, 188, 188);
 }
+
 #active:hover {
     background-color: rgb(49, 134, 219);
 }
@@ -95,17 +100,20 @@ header h1 {
 .notyet, #email {
     color: rgb(49, 134, 219);
 }
+
 .forms {
     padding: 25px 25px 10px 25px;
     box-sizing: border-box;
     overflow: hidden;
 }
+
 form label {
     font-size: small;
     color: black;
 }
+
 .normalForm input[type="text"],
-input[type="password"]{
+input[type="password"] {
     width: 100%;
     margin-bottom: 10px;
     padding-left: 5px;
@@ -117,6 +125,7 @@ input[type="password"]{
     background-color: white;
     color: #717171;
 }
+
 input[type="submit"],
 input[type="reset"] {
     border-radius: 20px;
@@ -129,10 +138,12 @@ input[type="reset"] {
     color: black;
     cursor: pointer;
 }
+
 input[type="submit"]:hover,
 input[type="reset"]:hover {
     background-color: rgb(49, 134, 219);
 }
+
 .normalForm {
     display: block;
     width: 300px;
@@ -140,17 +151,21 @@ input[type="reset"]:hover {
     margin-left: auto;
     margin-right: auto;
 }
+
 #formbox {
     padding-top: 50px;
     padding-bottom: 50px;
 }
+
 .formname {
     font-size: large;
     color: black;
 }
+
 ::placeholder {
     font-size: small;
 }
+
 .required-label::after {
     content: "*";
     color: rgba(255, 0, 0);
@@ -164,6 +179,7 @@ input[type="reset"]:hover {
     right: 40px;
     z-index: 200;
 }
+
 #scroll-to-top button {
     position: sticky;
     top: 90vh;
@@ -188,7 +204,7 @@ input[type="reset"]:hover {
     padding-bottom: 9rem;
 }
 
-.contentContainer>div {
+.contentContainer > div {
     margin: 10px;
 }
 
@@ -294,7 +310,7 @@ a {
     display: block;
 }
 
-div > .kosarba{
+div > .kosarba {
     margin-top: auto;
     position: absolute;
     bottom: 0;
@@ -305,13 +321,15 @@ div > .kosarba{
     padding: 10px;
     float: left;
 }
-.kosarba button{
+
+.kosarba button {
     background: transparent;
     border: none;
     padding: 0;
     cursor: pointer;
     float: right;
 }
+
 .kosarba button img {
     height: 30px;
     width: 30px;
@@ -327,7 +345,7 @@ div > .kosarba{
     background-color: orange;
     border: 1px solid black;
     box-sizing: border-box;
-  }
+}
 
 .attributeTable td,
 th {
@@ -348,11 +366,9 @@ th {
 }
 
 
-
 .resistanceBandTable thead {
     text-align: center;
 }
-
 
 
 .resistanceBandTable tbody tr:nth-child(odd) {
@@ -364,7 +380,7 @@ th {
     padding: 2px;
 }
 
-.resistanceAttributeTable thead{
+.resistanceAttributeTable thead {
     font-weight: lighter;
     color: #ae3900;
 }
@@ -382,11 +398,13 @@ footer {
     padding: 5px;
     color: white;
 }
-#left{
+
+#left {
 
     text-align: left;
 }
-#right{
+
+#right {
     float: right;
 }
 
@@ -398,12 +416,12 @@ footer {
     flex-direction: row;
 }
 
-.productBrowseImage{
+.productBrowseImage {
     width: 200px;
     height: 200px;
 }
 
-.assignment{
+.assignment {
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -412,6 +430,7 @@ footer {
     border: 1px solid;
     flex-basis: calc(70% - 10px);
 }
+
 .btnFrom {
     background-color: rgb(60, 150, 240);
     color: black;
@@ -419,12 +438,13 @@ footer {
     padding: 8px 12px;
     border: none;
     cursor: pointer;
-  }
-  
-  .btnFrom:hover, .options:hover {
+}
+
+.btnFrom:hover, .options:hover {
     background-color: rgb(49, 134, 219);
-  }
-  .options{
+}
+
+.options {
     background-color: rgb(60, 150, 240);
     color: black;
     text-align: center;
@@ -435,9 +455,9 @@ footer {
     border-radius: 20px;
     margin: 1vw;
     border: 1px solid #d7d7d7;
-  }
+}
 
-  select {
+select {
     width: 42%;
     margin-bottom: 10px;
     padding-left: 5px;
@@ -447,9 +467,9 @@ footer {
     font-size: 15px;
     background-color: white;
     color: #717171;
-  }
+}
 
-  .search{
+.search {
     padding-top: 20px;
     width: 80vw;
     display: flex;
@@ -459,15 +479,15 @@ footer {
     min-width: 300px;
     background-color: white;
 
-  }
+}
 
-  .search label, .search select, .search input {
+.search label, .search select, .search input {
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
-  }
+}
 
-  .search input[type="text"]{
+.search input[type="text"] {
     width: 42%;
     margin-bottom: 10px;
     padding-left: 5px;
@@ -478,4 +498,11 @@ footer {
     font-size: 15px;
     background-color: white;
     color: #717171;
-  }
+}
+.productButton{
+    border: 1px solid rgb(174, 174, 174);
+}
+.productButton:hover {
+    background: rgb(174, 174, 174);
+    border: none;
+}

@@ -1,12 +1,12 @@
 <?php
 
 include('utility/DBConnection.php');
-  
- session_start();
 
- $conn = new DBConnection();
+session_start();
 
- ?>
+$conn = new DBConnection();
+
+?>
 <!DOCTYPE html>
 <html lang="hu">
 
@@ -20,74 +20,74 @@ include('utility/DBConnection.php');
 </head>
 
 <body>
-    <!-- header -->
-    <?php include_once "includes/header.html"; ?>
-    <!-- navbar -->
-  <?php include_once "includes/navbar.php"; ?>
-    <!-- tartalom -->
-    <main>
-        <div id="scroll-to-top">
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
-        </div>
+<!-- header -->
+<?php include_once "includes/header.html"; ?>
+<!-- navbar -->
+<?php include_once "includes/navbar.php"; ?>
+<!-- tartalom -->
+<main>
+    <div id="scroll-to-top">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
+    </div>
 
-        <div class="search"> 
-            <?php
-                $productTypes = $conn->getProductTypes();
-                
-                echo '<form style="width = 100%" action="shop.php" method="get">
+    <div class="search">
+        <?php
+        $productTypes = $conn->getProductTypes();
+
+        echo '<form style="width = 100%" action="shop.php" method="get">
                 <label for="type">Típus</label>
                 <select name="type" id="type">
                 <option value="false">Válassz</option>';
 
-                while ($row = $productTypes->fetch_assoc()) {
+        while ($row = $productTypes->fetch_assoc()) {
 
-                    $option = '<option ';
-                    if (isset($_GET["type"]) && $row["id"] == $_GET["type"]) {
-                        $option = $option . 'selected="selected" ';
-                    }
-                    echo $option .  'value="' . $row["id"] . '">' . $row["name"] . '</option>' . "\n";
-                }
-                
-                echo '</select>
+            $option = '<option ';
+            if (isset($_GET["type"]) && $row["id"] == $_GET["type"]) {
+                $option = $option . 'selected="selected" ';
+            }
+            echo $option . 'value="' . $row["id"] . '">' . $row["name"] . '</option>' . "\n";
+        }
+
+        echo '</select>
                 <input type="text" placeholder="Keresés" ';
-                
-                if (isset($_GET["textFilter"])) {
-                    echo 'value="' . $_GET["textFilter"] . '"';
-                }
 
-                echo 'name="textFilter" id="textFilter">';
-                
+        if (isset($_GET["textFilter"])) {
+            echo 'value="' . $_GET["textFilter"] . '"';
+        }
 
-            ?>
-                <input type="submit" value="Keresés">
-                </form>
-            </div>
-            <div class="contentContainer">
+        echo 'name="textFilter" id="textFilter">';
+
+
+        ?>
+        <input type="submit" value="Keresés">
+        </form>
+    </div>
+    <div class="contentContainer">
         <?php
-            
-                $type = false;
 
-                if (isset($_GET["type"]) && is_numeric($_GET["type"]) && $_GET["type"] >= 0) {
-                    $type = $_GET["type"];
-                }
-                $textFilter = "";
+        $type = false;
 
-                if (isset($_GET["textFilter"])) {
-                    $textFilter = $_GET["textFilter"];
-                }
+        if (isset($_GET["type"]) && is_numeric($_GET["type"]) && $_GET["type"] >= 0) {
+            $type = $_GET["type"];
+        }
+        $textFilter = "";
 
-                $products = $conn->getProducts($type, $textFilter);
+        if (isset($_GET["textFilter"])) {
+            $textFilter = $_GET["textFilter"];
+        }
 
-                while ($row = $products->fetch_assoc()) {
-                    $rating = $conn->getAvarageRating($row["id"]); 
-                    echo '<div class="productBox">
+        $products = $conn->getProducts($type, $textFilter);
+
+        while ($row = $products->fetch_assoc()) {
+            $rating = $conn->getAvarageRating($row["id"]);
+            echo '<div class="productBox">
                     <div>
                         
                             <form class="popup" method="post" action="productRating.php">
                             <input type="hidden" name="product_id" value="' . $row["id"] . '">
                             
 
-                            <button type="submit">
+                            <button class="productButton" type="submit">
                                 <img src="' . $row["imagePath"] . '" class="productBoxImage" title="' . $row["type"] . '" alt="' . $row["type"] . '">
                                 <div class="productName">
                                     ' . $row["title"] . '
@@ -102,7 +102,7 @@ include('utility/DBConnection.php');
                         ' . number_format($row["price"], 0, ',', ' ') . "Ft" . '
                         </div>
                         <div class="productRating">
-                        ' . str_repeat(html_entity_decode('&starf;'), round($rating)) . str_repeat(html_entity_decode('&star;'), 5-round($rating)) . ' 
+                        ' . str_repeat(html_entity_decode('&starf;'), round($rating)) . str_repeat(html_entity_decode('&star;'), 5 - round($rating)) . ' 
                         </div>
                     </div>
                     <div>
@@ -115,12 +115,12 @@ include('utility/DBConnection.php');
                         </form>
                     </div>
                     </div>';
-                }
+        }
         ?>
     </div>
-    </main>
-    <!-- footer -->
-    <?php include_once "includes/footer.html"; ?>
+</main>
+<!-- footer -->
+<?php include_once "includes/footer.html"; ?>
 </body>
 
 </html>

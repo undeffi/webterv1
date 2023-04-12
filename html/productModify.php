@@ -120,9 +120,10 @@
     <main>
         <div id="formbox">
             <form class="normalForm" method="post" action="productModify.php" enctype="multipart/form-data">
+                <p style="font-size: small"><a style="color: orange" href="productBrowse.php">Vissza az előző oldalra</a></p>
                 <label class="formname">Termék módosítása</label>
                 <div class="forms">
-                    <label for="pTitle">Leírás</title><br>
+                    <label for="pTitle">Leírás</label><br>
                     <?php
                     echo '<textarea id="pTitle" name="pTitle" cols="30" rows="10" maxlength="90" style="resize:none">' . $productInfo["title"] . '</textarea><br>
                     <label for="type">Típus</label><br>

@@ -48,10 +48,11 @@
         <table class="assignment">
         <thead>
           <tr>
-            <th>Azonosító (ID)</th>
-            <th>Vezetéknév</th>
-            <th>Keresztnév</th>
-            <th>Email cím</th>
+              <th>Azonosító (ID)</th>
+              <th>Vezetéknév</th>
+              <th>Keresztnév</th>
+              <th>Email cím</th>
+              <th><a style="color: orange" href="adminDashboard.php">Vissza az előző oldalra</a></th>
           </tr>
         </thead>
         <tbody>
