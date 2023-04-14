@@ -11,7 +11,6 @@ if (!isset($_SESSION["userData"])) {
 if (isset($_COOKIE['cart'])) {
     $_SESSION['cart'] = unserialize($_COOKIE['cart']);
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -60,8 +59,7 @@ if (isset($_COOKIE['cart'])) {
                     'imagePath' => $row['imagePath']
                 );
             }
-            setcookie('cart', serialize($_SESSION['cart']), time() + (86400 * 30), "/"); // cookie expires in 30 days
-
+            setcookie('cart', serialize($_SESSION['cart']), time() + (86400 * 30), "/");
         }
     }
     ?>
@@ -72,7 +70,9 @@ if (isset($_COOKIE['cart'])) {
     } else {
         ?>
         <div class="cart-content">
+
             <table class="assignment">
+
                 <thead>
                 <tr>
                     <th>Termék neve</th>
@@ -102,13 +102,27 @@ if (isset($_COOKIE['cart'])) {
                 <tr>
                     <td colspan="3" class="text-right"><strong>Összesen: </strong></td>
                     <td><strong><?php echo number_format($total); ?> Ft </strong></td>
-                    <td>
-                        <form method="POST" action="orderFill.php">
-                            <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
-                            <button class="btnFrom" type="submit" name="orderfill">Rendelés</button>
-                        </form>
-                    </td>
                 </tr>
+                <td>
+                    <form class="normalForm" method="post">
+                        <label class="formname"> Szállítási adatok</label>
+                        <div class="forms">
+                            <label for="postcode" class="required-label">Irányítószám:</label><br>
+                            <input type="text" id="postcode" name="postcode" placeholder="6725" required><br>
+                            <label for="city" class="required-label">Város:</label><br>
+                            <input type="text" id="city" name="city" placeholder="Szeged" required><br>
+                            <label for="line1" class="required-label">Címsor 1:</label><br>
+                            <input type="text" id="line1" name="line1" placeholder="Tisza Lajos krt. 103"
+                                   required><br>
+                            <label for="line2" class="label">Címsor 2:</label><br>
+                            <input type="text" id="line2" name="line2" placeholder="9. emelet 50. lakás"><br>
+
+                            <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
+                            <button class="btnFrom" type="submit" name="order">Rendelés</button>
+                        </div>
+                    </form>
+
+                </td>
                 </tbody>
             </table>
         </div>
@@ -118,10 +132,15 @@ if (isset($_COOKIE['cart'])) {
         $product_id = $_POST['product_id'];
         unset($_SESSION['cart'][$product_id]);
         setcookie('cart', serialize($_SESSION['cart']), time() + (86400 * 30), "/");
-        header("Location: cart.php");
+        //header("Location: cart.php");
     }
 
-    if (isset($_POST['orderfill'])) {
+    if (isset($_POST['order'])) {
+        $postcode = $_POST["postcode"];
+        $city = $_POST["city"];
+        $line1 = $_POST["line1"];
+        $line2 = $_POST["line2"];
+        $product_id = $_POST["product_id"];
         $errmsg = "<strong>" . "Nem sikerült feladni a rendelést!" . "</strong>" . "<br>";
         $err = "";
         if (empty($_SESSION['cart'])) {
@@ -136,7 +155,14 @@ if (isset($_COOKIE['cart'])) {
                 $err = true;
             }
         }
-        if ($err) {
+        if (!$err) {
+            $conn->addOrder($total, $postcode, $city, $line1, $line2);
+            echo "Sikeres rendelés!";
+            unset($_SESSION['cart']);
+            unset($_POST['order']);
+            setcookie('cart', serialize($_SESSION['cart']), time() + (86400 * 30), "/");
+            header("Location: profile.php");
+        } else {
             echo $errmsg;
         }
     }

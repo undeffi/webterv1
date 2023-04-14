@@ -53,7 +53,6 @@ $conn = new DBConnection();
             </thead>
             <tbody>
             <?php
-            $total = 0;
             while ($row = $orderInfo->fetch_assoc()) {
                 ?>
                 <tr>

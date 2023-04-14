@@ -33,12 +33,13 @@ $conn = new DBConnection();
 <!-- tartalom -->
 <main>
     <div class="adminContainer">
-        <?php $orders = $conn->getOrderAdmin(); ?>
+        <?php $orders = $conn->getOrderAdmin();?>
         <table class="assignment">
             <thead>
             <tr>
                 <th>Rendelés azonosítója (ID)</th>
                 <th>Felhasználó neve</th>
+                <th>Rendelési cím</th>
                 <th>Rendelés összege</th>
                 <th colspan="2"><a style="color: orange" href="adminDashboard.php">Vissza az előző oldalra</a></th>
             </tr>
@@ -47,12 +48,15 @@ $conn = new DBConnection();
             <?php
             $total = 0;
             while ($row = $orders->fetch_assoc()) {
+                    $shipping = $conn->getShipping($row['order_id']);
+                    $shipping = $shipping->fetch_assoc();
                     $user = $conn->getUserById($row['user_id']);
                     $user = $user->fetch_assoc();
                 ?>
                 <tr>
                     <td><?php echo $row['order_id']; ?></td>
                     <td><?php echo $user['fname'] ." ". $user['lname']; ?></td>
+                    <td><?php echo $shipping['postcode'] ." ". $shipping['city'] ." ". $shipping['line1'] ." ". $shipping['line2']; ?></td>
                     <td><?php echo $row['total_price']; ?> Ft</td>
                     <td>
                         <?php echo '<a href="orderItems.php?order_id=' . $row["order_id"] . '">Rendelés tartalma</a></div>'; ?>

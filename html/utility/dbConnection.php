@@ -224,8 +224,7 @@ class DBConnection
         $stmt->execute();
     }
 
-
-    public function addOrder($total_price)
+    public function addOrder($total_price, $postcode, $city, $line1, $line2)
     {
         $user_id = $_SESSION["userData"]->getId();
         $stmt = $this->connection->prepare("INSERT INTO `orders` (`user_id`, `total_price`)VALUES (?, ?);");
@@ -247,39 +246,34 @@ class DBConnection
             $stmt->bind_param("iisi", $order_id, $product_id, $product_title, $quantity);
             $stmt->execute();
         }
+
+        $stmt = $this->connection->prepare("INSERT INTO order_shipping (order_id, postcode, city, line1, line2) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("issss", $order_id, $postcode, $city, $line1, $line2);
+        $stmt->execute();
     }
 
-    public function getOrder()
-    {
-        $user_id = $_SESSION["userData"]->getId();
+    public function getOrderByUserID($user_id){
         $stmt = $this->connection->prepare("SELECT * FROM orders WHERE user_id = ?");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
-        $orders_result = $stmt->get_result();
-        if ($orders_result->num_rows === 0) {
-            echo "<tr> <td>" . "Nincs rendelés!" . "<br>" . "</td> </tr>";
-            return null;
+        if ($stmt) {
+            return $stmt->get_result();
         }
-        while ($order_row = $orders_result->fetch_assoc()) {
-            $order_id = $order_row['order_id'];
-
-            $stmt = $this->connection->prepare("SELECT * FROM order_items WHERE order_id = ?");
-            $stmt->bind_param("i", $order_id);
-            $stmt->execute();
-            $order_items_result = $stmt->get_result();
-
-            while ($order_item_row = $order_items_result->fetch_assoc()) {
-                echo "<tr> <td>" . $order_item_row['product_title'] . "</td>" .
-                    "<td>" . $order_item_row['quantity'] . "<br>" . "</td>  </tr>";
-            }
-        }
-
-        return $orders_result;
     }
-
     public function getOrderAdmin()
     {
         $stmt = $this->connection->prepare("SELECT * FROM `orders`;");
+        $stmt->execute();
+
+        if ($stmt) {
+            return $stmt->get_result();
+        }
+        return "Nincs rendelés!";
+    }
+
+    public function getShipping($order_id){
+        $stmt = $this->connection->prepare("SELECT * FROM `order_shipping` WHERE `order_id` = ?;");
+        $stmt->bind_param("i", $order_id);
         $stmt->execute();
 
         if ($stmt) {
@@ -317,6 +311,10 @@ class DBConnection
     public function deleteOrder($order_id)
     {
         $stmt = $this->connection->prepare("DELETE FROM `order_items` WHERE `order_id` = ?");
+        $stmt->bind_param("i", $order_id);
+        $stmt->execute();
+
+        $stmt = $this->connection->prepare("DELETE FROM `order_shipping` WHERE `order_id` = ?");
         $stmt->bind_param("i", $order_id);
         $stmt->execute();
 
@@ -368,6 +366,14 @@ class DBConnection
         $stmt = $this->connection->prepare("INSERT INTO ratings (user_id, product_id, rating) VALUES (?, ?, ?)");
         $stmt->bind_param("iii", $user_id, $product_id, $rating);
         $stmt->execute();
+    }
+
+    public function updateRating($user_id, $product_id, $rating){
+        $stmt = $this->connection->prepare("UPDATE `ratings` SET `rating` = ? WHERE `user_id` = ? AND `product_id` = ?;");
+        $stmt->bind_param("iii", $rating, $user_id, $product_id);
+        $stmt->execute();
+
+        return $stmt->errno == 0;
     }
 
     public function getAvarageRating($product_id)
