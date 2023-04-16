@@ -31,8 +31,8 @@
                 header("Location: logout.php");
             } else if(is_numeric($_GET["id"]) && $_GET["id"] != $_SESSION["userData"]->getId()) {
                 $conn->deleteUser($_GET["id"]);
+                header("Location: adminDashboard.php");
             }
-            header("Location: adminDashboard.php");
         }
     }
 

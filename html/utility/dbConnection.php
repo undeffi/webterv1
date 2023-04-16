@@ -219,6 +219,10 @@ class DBConnection
 
     public function deleteUser($id)
     {
+        $order_id = $this->getOrderByUserID($id);
+        while($row = $order_id->fetch_assoc()){
+            $this->deleteOrder($row['order_id']);
+        }
         $stmt = $this->connection->prepare("DELETE FROM `users` WHERE `id` = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
