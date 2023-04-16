@@ -34,7 +34,7 @@ $conn = new DBConnection();
         <?php
         $productTypes = $conn->getProductTypes();
 
-        echo '<form style="width = 100%" action="shop.php" method="get">
+        echo '<form style="width: 100%" action="shop.php" method="get">
                 <label for="type">Típus</label>
                 <select name="type" id="type">
                 <option value="false">Válassz</option>';
@@ -89,10 +89,11 @@ $conn = new DBConnection();
 
                             <button class="productButton" type="submit">
                                 <img src="' . $row["imagePath"] . '" class="productBoxImage" title="' . $row["type"] . '" alt="' . $row["type"] . '">
-                                <div class="productName">
+                                
+                            </button>
+                            <div class="productName">
                                     ' . $row["title"] . '
                                 </div>
-                            </button>
                         </form>                           
                         
                 
