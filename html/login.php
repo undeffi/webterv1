@@ -97,7 +97,7 @@
                     <label for="pw" class="required-label">Jelszó:</label><br>
                     <input type="password" id="pw" name="pw"  placeholder="Jelszó"><br>
                     <span class="error"><?php echo $pwErr ?></span>
-                    <span><?php echo $message ?></span>
+                    <span class="error"><?php echo $message ?></span>
                     <input type="submit" value="Bejelentkezés">
                     <a class="notyet" href="register.php"> Még nem regisztráltam.</a>
                 </div>
