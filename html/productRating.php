@@ -32,11 +32,12 @@ $conn = new DBConnection();
         $type = false;
         if (isset($_POST['product_id'])) {
             $product_id = $_POST['product_id'];
-            // Retrieve product information from the database
             $product = $conn->getProductById($product_id);
             if ($product) {
                 $row = mysqli_fetch_assoc($product);
             }
+        }else{
+            header("Location: shop.php");
         }
         $rating = $conn->getAvarageRating($product_id);
         ?>

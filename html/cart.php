@@ -8,8 +8,8 @@ if (!isset($_SESSION["userData"])) {
     header("Location: login.php");
 }
 
-if (isset($_COOKIE['cart'])) {
-    $_SESSION['cart'] = unserialize($_COOKIE['cart']);
+if (isset($_COOKIE['cart_'.$_SESSION["userData"]->getId()])) {
+    $_SESSION['cart'] = unserialize($_COOKIE['cart_'.$_SESSION["userData"]->getId()]);
 }
 
 ?>
@@ -60,7 +60,7 @@ if (isset($_COOKIE['cart'])) {
                     'imagePath' => $row['imagePath']
                 );
             }
-            setcookie('cart', serialize($_SESSION['cart']), time() + (86400 * 30), "/"); // cookie expires in 30 days
+            setcookie('cart_'.$_SESSION["userData"]->getId(), serialize($_SESSION['cart']), time() + (86400 * 30), "/");
 
         }
     }
@@ -117,7 +117,7 @@ if (isset($_COOKIE['cart'])) {
     if (isset($_POST['remove_item'])) {
         $product_id = $_POST['product_id'];
         unset($_SESSION['cart'][$product_id]);
-        setcookie('cart', serialize($_SESSION['cart']), time() + (86400 * 30), "/");
+        setcookie('cart_'.$_SESSION["userData"]->getId(), serialize($_SESSION['cart']), time() + (86400 * 30), "/");
         header("Location: cart.php");
     }
 

@@ -8,8 +8,8 @@ if (!isset($_SESSION["userData"])) {
     header("Location: login.php");
 }
 
-if (isset($_COOKIE['cart'])) {
-    $_SESSION['cart'] = unserialize($_COOKIE['cart']);
+if (isset($_COOKIE['cart_'.$_SESSION["userData"]->getId()])) {
+    $_SESSION['cart'] = unserialize($_COOKIE['cart_'.$_SESSION["userData"]->getId()]);
 }
 ?>
 
@@ -38,6 +38,10 @@ if (isset($_COOKIE['cart'])) {
         $_SESSION['cart'] = array();
     }
 
+    if (empty($_SESSION['cart'])) {
+        header("Location: cart.php");
+    }
+
     if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
         $product_id = $_POST['product_id'];
         $quantity = $_POST['quantity'];
@@ -59,7 +63,7 @@ if (isset($_COOKIE['cart'])) {
                     'imagePath' => $row['imagePath']
                 );
             }
-            setcookie('cart', serialize($_SESSION['cart']), time() + (86400 * 30), "/");
+            setcookie('cart_'.$_SESSION["userData"]->getId(), serialize($_SESSION['cart']), time() + (86400 * 30), "/");
         }
     }
     ?>
@@ -78,6 +82,8 @@ if (isset($_COOKIE['cart'])) {
                     <th>Termék neve</th>
                     <th>Ár</th>
                     <th>Mennyiség</th>
+                    <th><a style="color: orange" href="cart.php"> Vissza az előző oldalra</a></th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -91,12 +97,7 @@ if (isset($_COOKIE['cart'])) {
                         <td><?php echo number_format($item['price']); ?> Ft</td>
                         <td><?php echo $item['quantity']; ?></td>
                         <td><?php echo number_format($subtotal); ?> Ft</td>
-                        <td>
-                            <form method="POST">
-                                <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
-                                <button class="btnFrom" type="submit" name="remove_item">Eltávolítás</button>
-                            </form>
-                        </td>
+
                     </tr>
                 <?php } ?>
                 <tr>
@@ -128,12 +129,6 @@ if (isset($_COOKIE['cart'])) {
         </div>
         <?php
     }
-    if (isset($_POST['remove_item'])) {
-        $product_id = $_POST['product_id'];
-        unset($_SESSION['cart'][$product_id]);
-        setcookie('cart', serialize($_SESSION['cart']), time() + (86400 * 30), "/");
-        //header("Location: cart.php");
-    }
 
     if (isset($_POST['order'])) {
         $postcode = $_POST["postcode"];
@@ -160,7 +155,7 @@ if (isset($_COOKIE['cart'])) {
             echo "Sikeres rendelés!";
             unset($_SESSION['cart']);
             unset($_POST['order']);
-            setcookie('cart', serialize($_SESSION['cart']), time() + (86400 * 30), "/");
+            setcookie('cart_'.$_SESSION["userData"]->getId(), serialize($_SESSION['cart']), time() + (86400 * 30), "/");
             header("Location: profile.php");
         } else {
             echo $errmsg;
