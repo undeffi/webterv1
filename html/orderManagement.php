@@ -59,10 +59,10 @@ $conn = new DBConnection();
                     <td><?php echo $shipping['postcode'] ." ". $shipping['city'] ." ". $shipping['line1'] ." ". $shipping['line2']; ?></td>
                     <td><?php echo $row['total_price']; ?> Ft</td>
                     <td>
-                        <?php echo '<a href="orderItems.php?order_id=' . $row["order_id"] . '">Rendelés tartalma</a></div>'; ?>
+                        <?php echo '<a href="orderItems.php?order_id=' . $row["order_id"] . '">Rendelés tartalma</a>'; ?>
                     </td>
                     <td>
-                        <?php echo '<a style="color:red" href="orderDelete.php?order_id=' . $row["order_id"] . '">Törlés</a></div>'; ?>
+                        <?php echo '<a style="color:red" href="orderDelete.php?order_id=' . $row["order_id"] . '">Törlés</a>'; ?>
                     </td>
 
                 </tr>

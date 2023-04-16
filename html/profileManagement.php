@@ -1,16 +1,16 @@
 <?php
 
-    include('utility/DBConnection.php');
+include('utility/DBConnection.php');
 
-    session_start();
+session_start();
 
-    if (!isset($_SESSION["userData"])) {
+if (!isset($_SESSION["userData"])) {
     header("Location: login.php");
-  } elseif ($_SESSION["userData"]->getPrivLevel() < 2) {
-      header("Location: profile.php");
-  }
+} elseif ($_SESSION["userData"]->getPrivLevel() < 2) {
+    header("Location: profile.php");
+}
 
-  $conn = new DBConnection();
+$conn = new DBConnection();
 ?>
 
 <!DOCTYPE html>
@@ -26,52 +26,41 @@
 </head>
 
 <body>
-    <!-- header -->
-    <?php include_once "includes/header.html"; ?>
-    <!-- navbar -->
-    <?php include_once "includes/navbar.php"; ?>
-    <!-- tartalom -->
-    <main>
+<!-- header -->
+<?php include_once "includes/header.html"; ?>
+<!-- navbar -->
+<?php include_once "includes/navbar.php"; ?>
+<!-- tartalom -->
+<main>
     <div class="adminContainer">
-    <?php $users = $conn->getUsers();
-        // $users = $conn->getUsers();
-
-
-        // while ($row = $users->fetch_assoc()) {
-        //     $content = '<div style="width: 100%">';
-        //     $content .= '<p>Azonosító: ' . $row["id"] . ' Vezetéknév: ' .
-        //     $row["fname"] . ' Keresztnév: ' . $row["lname"] . ' Email cím: ' . $row["email"] . '</p>';
-        //     $content .= '<a href="userDelete.php?id=' . $row["id"] . '">Törlés</a></div>';
-        //     echo $content;
-        // }
-?>
+        <?php $users = $conn->getUsers(); ?>
         <table class="assignment">
-        <thead>
-          <tr>
-              <th>Azonosító (ID)</th>
-              <th>Vezetéknév</th>
-              <th>Keresztnév</th>
-              <th>Email cím</th>
-              <th><a style="color: orange" href="adminDashboard.php">Vissza az előző oldalra</a></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
+            <thead>
+            <tr>
+                <th>Azonosító (ID)</th>
+                <th>Vezetéknév</th>
+                <th>Keresztnév</th>
+                <th>Email cím</th>
+                <th><a style="color: orange" href="adminDashboard.php">Vissza az előző oldalra</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
             $total = 0;
-            while ($row = $users->fetch_assoc()) {?>
-              <tr>
-                <td><?php echo $row['id']; ?></td>
-                <td><?php echo $row['fname']; ?></td>
-                <td><?php echo $row['lname']; ?></td>
-                <td><?php echo $row['email']; ?></td>
-                <td>
-                <?php echo '<a style="color:red"href="userDelete.php?id=' . $row["id"] . '">Törlés</a></div>'; ?>
-                </td>
-              </tr>
-          <?php } ?>
-        </tbody>
-      </table>
+            while ($row = $users->fetch_assoc()) { ?>
+                <tr>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo $row['fname']; ?></td>
+                    <td><?php echo $row['lname']; ?></td>
+                    <td><?php echo $row['email']; ?></td>
+                    <td>
+                        <?php echo '<a style="color:red" href="userDelete.php?id=' . $row["id"] . '">Törlés</a>'; ?>
+                    </td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
     </div>
-    </main>
+</main>
 </body>
 </html>

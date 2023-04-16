@@ -51,10 +51,12 @@ $order_id = $conn->getOrderByUserID($user_id);
 
             </tr>
         </table>
-        <table class="assignment"> <?php if (!$order_id) { ?>
-                <h1><strong>Nincs rendelés!<strong></h1>
-            <?php } else { ?>
-            <h1><strong>Rendeléseim<strong></h1>
+        <?php if (!$order_id) { ?>
+            <h1><strong>Nincs rendelés!</strong></h1>
+        <?php } else { ?>
+        <h1><strong>Rendeléseim</strong></h1>
+        <table class="assignment">
+
             <thead>
             <tr>
                 <th>Termék megnevezése:</th>
@@ -62,7 +64,6 @@ $order_id = $conn->getOrderByUserID($user_id);
                 <th>Szállítási cím:</th>
             </tr>
             </thead>
-            <tbody>
             <tbody>
             <?php
             while ($order = $order_id->fetch_assoc()) {
@@ -80,7 +81,6 @@ $order_id = $conn->getOrderByUserID($user_id);
                 <?php }
             }
             } ?>
-            </tbody>
             </tbody>
         </table>
     </div>

@@ -1,20 +1,19 @@
 <?php
 
 include('utility/DBConnection.php');
-  
- session_start();
 
- if (!isset($_SESSION["userData"])) {
+session_start();
+
+if (!isset($_SESSION["userData"])) {
     header("Location: login.php");
-  } elseif ($_SESSION["userData"]->getPrivLevel() < 2) {
-      header("Location: shop.php");
-  }
+} elseif ($_SESSION["userData"]->getPrivLevel() < 2) {
+    header("Location: shop.php");
+}
 
- $conn = new DBConnection();
+$conn = new DBConnection();
 
 
-
- ?>
+?>
 <!DOCTYPE html>
 <html lang="hu">
 
@@ -28,56 +27,56 @@ include('utility/DBConnection.php');
 </head>
 
 <body>
-    <!-- header -->
-    <?php include_once "includes/header.html"; ?>
-    <!-- navbar -->
-  <?php include_once "includes/navbar.php"; ?>
-    <!-- tartalom -->
-    <main>
-        <div id="scroll-to-top">
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
-        </div>
+<!-- header -->
+<?php include_once "includes/header.html"; ?>
+<!-- navbar -->
+<?php include_once "includes/navbar.php"; ?>
+<!-- tartalom -->
+<main>
+    <div id="scroll-to-top">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
+    </div>
 
-        <div>
-            <?php
-                $productTypes = $conn->getProductTypes();
-                
+    <div>
+        <?php
+        $productTypes = $conn->getProductTypes();
 
-                echo '<div class="search"> <form style="width = 100%" action="productBrowse.php" method="get">
+
+        echo '<div class="search"><form style="width:100%" action="productBrowse.php" method="get">
                 <p style="font-size: small"><a style="color: orange" href="adminDashboard.php">Vissza az előző oldalra</a></p>
 
                 <label for="type">Típus</label>
                 <select name="type" id="type">
                 <option value="false">Válassz</option>';
 
-                while ($row = $productTypes->fetch_assoc()) {
+        while ($row = $productTypes->fetch_assoc()) {
 
-                    $option = '<option ';
-                    if (isset($_GET["type"]) && $row["id"] == $_GET["type"]) {
-                        $option = $option . 'selected="selected" ';
-                    }
-                    echo $option .  'value="' . $row["id"] . '">' . $row["name"] . '</option>' . "\n";
-                }
-                
-                echo '</select>
+            $option = '<option ';
+            if (isset($_GET["type"]) && $row["id"] == $_GET["type"]) {
+                $option = $option . 'selected="selected" ';
+            }
+            echo $option . 'value="' . $row["id"] . '">' . $row["name"] . '</option>' . "\n";
+        }
+
+        echo '</select>
                 <input type="text" placeholder="Keresés"';
-                
-                if (isset($_GET["textFilter"])) {
-                    echo 'value="' . $_GET["textFilter"] . '"';
-                }
 
-                echo 'name="textFilter" id="textFilter">';
-                
+        if (isset($_GET["textFilter"])) {
+            echo 'value="' . $_GET["textFilter"] . '"';
+        }
 
-            ?>
-                <input type="submit" value="Keresés">
-                </form>
-            </div>
-        </div>
+        echo ' name="textFilter" id="textFilter">';
+
+
+        ?>
+        <input type="submit" value="Keresés">
+        </form>
+    </div>
+    </div>
 
     <div class="contentContainer">
 
-    <?php
+        <?php
 
         $type = false;
 
@@ -96,37 +95,33 @@ include('utility/DBConnection.php');
 
         while ($row = $products->fetch_assoc()) {
 
-            echo '<div class="productBrowseRow">
-            <div>
-                <img class="productBrowseImage" src="' . $row["imagePath"] . '" alt="' . $row["type"] . '" title="' . $row["type"] . '">
-            </div>
-            <div style="height: 100%; width: 15%;">
-            ' . $row["title"] . '
-            </div>
-            <div>
-                <div style="height: 33%; width: 100px;">
-                ' . 'ertekeles' . '
-                </div>
-                <div style="height: 33%; width: 100px;">
-                ' . $row["price"] . '
-                </div>
-                <div style="height: 33%; width: 100px;">
-                ' . $row["supply"] . '
-                </div>
-            </div>
-            <div style="height: 100%; width: 15%;">
-            <a href="productModify.php?productID=' . $row["id"] . '">Módosítás</a>
-            </div>';
-
-
-        }
-
-        ?>
-        
+            echo
+                '<div class="productBrowseRow">
+                    <div>
+                        <img class="productBrowseImage" src="' . $row["imagePath"] . '" alt="' . $row["type"] . '" title="' . $row["type"] . '">
+                    </div>
+                    <div style="height: 100%; width: 15%;">
+                    ' . $row["title"] . '
+                    </div>
+                    <div>
+                        <div style="height: 33%; width: 100px;">
+                        ' . 'ertekeles' . '
+                        </div>
+                        <div style="height: 33%; width: 100px;">
+                        ' . $row["price"] . '
+                        </div>
+                        <div style="height: 33%; width: 100px;">
+                        ' . $row["supply"] . '
+                        </div>
+                    </div>
+                    <div style="height: 100%; width: 15%;">
+                    <a href="productModify.php?productID=' . $row["id"] . '">Módosítás</a>
+                    </div> 
+                </div>';} ?>
     </div>
-    </main>
-    <!-- footer -->
-    <?php include_once "includes/footer.html"; ?>
+</main>
+<!-- footer -->
+<?php include_once "includes/footer.html"; ?>
 </body>
 
 </html>

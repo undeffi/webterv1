@@ -46,7 +46,7 @@ $conn = new DBConnection();
         <table class="assignment">
             <thead>
             <tr>
-                <th colspan="2">Termék</th>
+                <th>Termék</th>
                 <th>Rendelt mennyiség</th>
                 <th><a style="color: orange" href="orderManagement.php">Vissza az előző oldalra</a></th>
             </tr>
@@ -56,10 +56,9 @@ $conn = new DBConnection();
             while ($row = $orderInfo->fetch_assoc()) {
                 ?>
                 <tr>
-                    <td colspan="2"><?php echo $row['product_title'] ?></td>
+                    <td><?php echo $row['product_title'] ?></td>
                     <td><?php echo $row['quantity']; ?></td>
-                    <td>
-                        <?php echo '<a style="color:red" href="orderItemDelete.php?product_id=' . $row["product_id"] . '&order_id=' . $_GET['order_id'] . '">Termék törlése</a>'; ?>                    </td>
+                    <td><?php echo '<a style="color:red" href="orderItemDelete.php?product_id=' . $row["product_id"] . '&order_id=' . $_GET['order_id'] . '">Termék törlése</a>'; ?></td>
 
                 </tr>
             <?php } ?>
