@@ -8,8 +8,8 @@ if (!isset($_SESSION["userData"])) {
     header("Location: login.php");
 }
 
-if (isset($_COOKIE['cart_'.$_SESSION["userData"]->getId()])) {
-    $_SESSION['cart'] = unserialize($_COOKIE['cart_'.$_SESSION["userData"]->getId()]);
+if (isset($_COOKIE['cart_' . $_SESSION["userData"]->getId()])) {
+    $_SESSION['cart'] = unserialize($_COOKIE['cart_' . $_SESSION["userData"]->getId()]);
 }
 ?>
 
@@ -63,7 +63,7 @@ if (isset($_COOKIE['cart_'.$_SESSION["userData"]->getId()])) {
                     'imagePath' => $row['imagePath']
                 );
             }
-            setcookie('cart_'.$_SESSION["userData"]->getId(), serialize($_SESSION['cart']), time() + (86400 * 30), "/");
+            setcookie('cart_' . $_SESSION["userData"]->getId(), serialize($_SESSION['cart']), time() + (86400 * 30), "/");
         }
     }
     ?>
@@ -104,26 +104,28 @@ if (isset($_COOKIE['cart_'.$_SESSION["userData"]->getId()])) {
                     <td colspan="3" class="text-right"><strong>Összesen: </strong></td>
                     <td><strong><?php echo number_format($total); ?> Ft </strong></td>
                 </tr>
-                <td>
-                    <form class="normalForm" method="post">
-                        <label class="formname"> Szállítási adatok</label>
-                        <div class="forms">
-                            <label for="postcode" class="required-label">Irányítószám:</label><br>
-                            <input type="text" id="postcode" name="postcode" placeholder="6725" required><br>
-                            <label for="city" class="required-label">Város:</label><br>
-                            <input type="text" id="city" name="city" placeholder="Szeged" required><br>
-                            <label for="line1" class="required-label">Címsor 1:</label><br>
-                            <input type="text" id="line1" name="line1" placeholder="Tisza Lajos krt. 103"
-                                   required><br>
-                            <label for="line2" class="label">Címsor 2:</label><br>
-                            <input type="text" id="line2" name="line2" placeholder="9. emelet 50. lakás"><br>
+                <tr>
+                    <td>
+                        <form class="normalForm" method="post">
+                            <label class="formname"> Szállítási adatok</label>
+                            <div class="forms">
+                                <label for="postcode" class="required-label">Irányítószám:</label><br>
+                                <input type="text" id="postcode" name="postcode" placeholder="6725" required><br>
+                                <label for="city" class="required-label">Város:</label><br>
+                                <input type="text" id="city" name="city" placeholder="Szeged" required><br>
+                                <label for="line1" class="required-label">Címsor 1:</label><br>
+                                <input type="text" id="line1" name="line1" placeholder="Tisza Lajos krt. 103"
+                                       required><br>
+                                <label for="line2" class="label">Címsor 2:</label><br>
+                                <input type="text" id="line2" name="line2" placeholder="9. emelet 50. lakás"><br>
 
-                            <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
-                            <button class="btnFrom" type="submit" name="order">Rendelés</button>
-                        </div>
-                    </form>
+                                <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
+                                <button class="btnFrom" type="submit" name="order">Rendelés</button>
+                            </div>
+                        </form>
 
-                </td>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -155,7 +157,7 @@ if (isset($_COOKIE['cart_'.$_SESSION["userData"]->getId()])) {
             echo "Sikeres rendelés!";
             unset($_SESSION['cart']);
             unset($_POST['order']);
-            setcookie('cart_'.$_SESSION["userData"]->getId(), serialize($_SESSION['cart']), time() + (86400 * 30), "/");
+            setcookie('cart_' . $_SESSION["userData"]->getId(), serialize($_SESSION['cart']), time() + (86400 * 30), "/");
             header("Location: profile.php");
         } else {
             echo $errmsg;

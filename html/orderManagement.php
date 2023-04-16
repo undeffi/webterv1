@@ -41,7 +41,7 @@ $conn = new DBConnection();
                 <th>Felhasználó neve</th>
                 <th>Rendelési cím</th>
                 <th>Rendelés összege</th>
-                <th colspan="2"><a style="color: orange" href="adminDashboard.php">Vissza az előző oldalra</a></th>
+                <th><a style="color: orange" href="adminDashboard.php">Vissza az előző oldalra</a></th>
             </tr>
             </thead>
             <tbody>

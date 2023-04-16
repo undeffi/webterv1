@@ -22,14 +22,14 @@ session_start();
 <!-- navbar -->
 <?php include_once "includes/navbar.php"; ?>
 <!-- tartalom -->
-
+<main>
 <div id="scroll-to-top">
     <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
 </div>
 <div class="contentContainer">
     <div style="width: 100%;">
         <div>
-            <main>
+
                 <p>
                     Üdvözöllek az Ohmic Shop online felületén!
                 </p>
